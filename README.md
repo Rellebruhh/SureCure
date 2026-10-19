@@ -1,1 +1,5 @@
 # SureCure
+
+Counterfeit medicines pose a significant public health threat in the Philippines, with a United Nations Office on Drugs and Crime report declaring the country as a hotspot for pharmaceutical crimes (UNODC, 2018). Such products are available for sale on the market. Thus, it is necessary for consumers to have a quick means of screening their medicines. SureCure is an Android screening tool for 20 common Philippine over-the-counter medicines and vitamins. Users photograph the pack front and the panel showing the barcode, lot number, and expiry date. A fine-tuned ResNet-18 identifies the product, and a conformally calibrated Mahalanobis guard flags unsupported packs. On-device text recognition reads the codes for user confirmation, which are compared with Food and Drug Administration (FDA) Philippines records. The complete application will be evaluated on a scripted scenario suite built from the FDA tables, with reliability judged by whether each scenario returns its intended verdict. 
+
+Keywords: counterfeit medicines, ResNet-18, Mahalanobis distance, mobile screening application
