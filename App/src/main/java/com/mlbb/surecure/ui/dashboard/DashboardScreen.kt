@@ -5,6 +5,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.Image
+import com.mlbb.surecure.R
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -151,24 +152,15 @@ private fun BrandHeader() {
 
 @Composable
 private fun BrandMark() {
-    Canvas(modifier = Modifier.size(30.dp)) {
-        val pillWidth = size.width * 0.76f
-        val pillHeight = size.height * 0.34f
-        drawRoundRect(
-            color = SureCureDarkGreen,
-            topLeft = Offset(size.width * 0.10f, size.height * 0.34f),
-            size = Size(pillWidth, pillHeight),
-            cornerRadius = androidx.compose.ui.geometry.CornerRadius(pillHeight / 2),
-            style = Stroke(width = size.width * 0.10f)
-        )
-        drawLine(
-            color = SureCureGreen,
-            start = Offset(size.width * 0.50f, size.height * 0.37f),
-            end = Offset(size.width * 0.50f, size.height * 0.66f),
-            strokeWidth = size.width * 0.08f,
-            cap = StrokeCap.Round
-        )
-    }
+    Image(
+        painter = painterResource(
+            id = R.drawable.logo
+        ),
+        contentDescription = "SureCure logo",
+        contentScale = ContentScale.Fit,
+        modifier = Modifier
+            .size(width = 50.dp, height = 50.dp)
+    )
 }
 
 @Composable
