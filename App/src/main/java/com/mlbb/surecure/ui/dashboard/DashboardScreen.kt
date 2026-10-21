@@ -4,6 +4,7 @@ import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -30,11 +31,12 @@ import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-
 private val SureCureMint = Color(0xFFDEFFE8)
 private val SureCureDarkGreen = Color(0xFF02542D)
 private val SureCureGreen = Color(0xFF14AE5C)
@@ -188,7 +190,7 @@ private fun ScanHistoryRow(
         horizontalArrangement = Arrangement.Start,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        MedicineThumbnail(isSafe = isSafe)
+        MedicineThumbnail(entry = entry)
         Spacer(modifier = Modifier.width(10.dp))
         Column(
             modifier = Modifier.weight(1f),
@@ -216,35 +218,18 @@ private fun ScanHistoryRow(
     }
 }
 
-/** Visual stand-in for the scan thumbnails, which were referenced but not uploaded. */
 @Composable
-private fun MedicineThumbnail(isSafe: Boolean) {
-    val backdrop = if (isSafe) SureCureMint else Color(0xFFFFD6D6)
-    Box(
+private fun MedicineThumbnail(entry: ScanHistoryEntry) {
+    Image(
+        painter = painterResource(
+            id = entry.thumbnailResId
+        ),
+        contentDescription = "Medicine package thumbnail",
+        contentScale = ContentScale.Crop,
         modifier = Modifier
             .size(width = 58.dp, height = 48.dp)
             .clip(RoundedCornerShape(7.dp))
-            .background(backdrop),
-        contentAlignment = Alignment.Center
-    ) {
-        Canvas(modifier = Modifier.size(31.dp)) {
-            val pillWidth = size.width * 0.80f
-            val pillHeight = size.height * 0.40f
-            drawRoundRect(
-                color = if (isSafe) SureCureDarkGreen else SureCureRed,
-                topLeft = Offset(size.width * 0.10f, size.height * 0.30f),
-                size = Size(pillWidth, pillHeight),
-                cornerRadius = androidx.compose.ui.geometry.CornerRadius(pillHeight / 2)
-            )
-            drawLine(
-                color = Color.White,
-                start = Offset(size.width * 0.50f, size.height * 0.31f),
-                end = Offset(size.width * 0.50f, size.height * 0.69f),
-                strokeWidth = size.width * 0.045f,
-                cap = StrokeCap.Round
-            )
-        }
-    }
+    )
 }
 
 @Composable
@@ -262,10 +247,13 @@ private fun CameraButton(onClick: () -> Unit) {
     }
 }
 
+/**
+ * An imported glyph function that draws a Camera symbol.
+ */
 @Composable
 private fun CameraGlyph() {
     Canvas(modifier = Modifier.size(29.dp)) {
-        val stroke = size.width * 0.085f
+        val stroke = size.width * 0.075f
         drawRoundRect(
             color = Color.White,
             topLeft = Offset(size.width * 0.08f, size.height * 0.28f),
