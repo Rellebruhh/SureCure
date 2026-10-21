@@ -1,5 +1,8 @@
 package com.mlbb.surecure.ui.dashboard
 
+import androidx.annotation.DrawableRes
+import com.mlbb.surecure.R
+
 /**
  * Demo data models for the dashboard's scan history.
  * Replace the sample entries with records from your repository/database later.
@@ -12,7 +15,8 @@ enum class ScanSafety {
 data class ScanHistoryEntry(
     val id: String,
     val safety: ScanSafety,
-    val scannedOn: String
+    val scannedOn: String,
+    @DrawableRes val thumbnailResId: Int = R.drawable.test_thumbnail
 )
 
 data class ScanHistorySection(
