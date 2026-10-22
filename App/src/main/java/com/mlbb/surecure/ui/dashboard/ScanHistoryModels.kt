@@ -12,7 +12,7 @@ enum class ScanSafety {
     UNSAFE
 }
 
-data class ScanHistoryEntry(
+data class ScanHistoryEntryPreview(
     val id: String,
     val safety: ScanSafety,
     val scannedOn: String,
@@ -21,7 +21,7 @@ data class ScanHistoryEntry(
 
 data class ScanHistorySection(
     val title: String,
-    val entries: List<ScanHistoryEntry>
+    val entries: List<ScanHistoryEntryPreview>
 )
 
 /** Text and grouping preserved from the Figma HTML export. */
@@ -29,17 +29,17 @@ fun sampleScanHistory(): List<ScanHistorySection> = listOf(
     ScanHistorySection(
         title = "This Month",
         entries = listOf(
-            ScanHistoryEntry("scan-1", ScanSafety.SAFE, "Scanned on October 19, 2026"),
-            ScanHistoryEntry("scan-2", ScanSafety.SAFE, "Scanned on October 19, 2026"),
-            ScanHistoryEntry("scan-3", ScanSafety.UNSAFE, "Scanned on October 19, 2026")
+            ScanHistoryEntryPreview("scan-1", ScanSafety.SAFE, "Scanned on October 19, 2026"),
+            ScanHistoryEntryPreview("scan-2", ScanSafety.SAFE, "Scanned on October 19, 2026"),
+            ScanHistoryEntryPreview("scan-3", ScanSafety.UNSAFE, "Scanned on October 19, 2026")
         )
     ),
     ScanHistorySection(
         title = "September",
         entries = listOf(
-            ScanHistoryEntry("scan-4", ScanSafety.SAFE, "Scanned on October 19, 2026"),
-            ScanHistoryEntry("scan-5", ScanSafety.SAFE, "Scanned on October 19, 2026"),
-            ScanHistoryEntry("scan-6", ScanSafety.SAFE, "Scanned on October 19, 2026")
+            ScanHistoryEntryPreview("scan-4", ScanSafety.SAFE, "Scanned on October 19, 2026"),
+            ScanHistoryEntryPreview("scan-5", ScanSafety.SAFE, "Scanned on October 19, 2026"),
+            ScanHistoryEntryPreview("scan-6", ScanSafety.SAFE, "Scanned on October 19, 2026")
         )
     )
 )

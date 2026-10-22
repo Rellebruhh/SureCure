@@ -21,7 +21,6 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -30,7 +29,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -56,7 +54,7 @@ private val UnsafeRowBackground = Color(0xFFFFE8E8)
 @Composable
 fun DashboardScreen(
     onCameraClick: () -> Unit,
-    onScanClick: (ScanHistoryEntry) -> Unit = {},
+    onScanClick: (ScanHistoryEntryPreview) -> Unit = {},
     sections: List<ScanHistorySection> = sampleScanHistory()
 ) {
     Column(
@@ -165,7 +163,7 @@ private fun BrandMark() {
 
 @Composable
 private fun ScanHistoryRow(
-    entry: ScanHistoryEntry,
+    entry: ScanHistoryEntryPreview,
     onClick: () -> Unit
 ) {
     val isSafe = entry.safety == ScanSafety.SAFE
@@ -211,7 +209,7 @@ private fun ScanHistoryRow(
 }
 
 @Composable
-private fun MedicineThumbnail(entry: ScanHistoryEntry) {
+private fun MedicineThumbnail(entry: ScanHistoryEntryPreview) {
     Image(
         painter = painterResource(
             id = entry.thumbnailResId
