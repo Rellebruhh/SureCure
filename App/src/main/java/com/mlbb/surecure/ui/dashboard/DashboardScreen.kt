@@ -1,5 +1,7 @@
 package com.mlbb.surecure.ui.dashboard
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -36,6 +38,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.mlbb.surecure.util.formatScanDate
+
 private val SureCureMint = Color(0xFFDEFFE8)
 private val SureCureDarkGreen = Color(0xFF02542D)
 private val SureCureGreen = Color(0xFF14AE5C)
@@ -51,6 +55,7 @@ private val UnsafeRowBackground = Color(0xFFFFE8E8)
  * @param onScanClick Optional callback for a scan-history row.
  * @param sections Data to display. Defaults to sample content matching the HTML export.
  */
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun DashboardScreen(
     onCameraClick: () -> Unit,
@@ -83,7 +88,7 @@ fun DashboardScreen(
 
             sections.forEach { section ->
                 Text(
-                    text = section.title,
+                    text = section.timePeriod,
                     color = Color.Black,
                     fontSize = 16.sp,
                     lineHeight = 20.sp,
@@ -161,6 +166,7 @@ private fun BrandMark() {
     )
 }
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 private fun ScanHistoryRow(
     entry: ScanHistoryEntryPreview,
@@ -197,7 +203,7 @@ private fun ScanHistoryRow(
             )
             Spacer(modifier = Modifier.height(7.dp))
             Text(
-                text = entry.scannedOn,
+                text = formatScanDate(entry.scannedOn),
                 color = SureCureGray,
                 fontSize = 11.sp,
                 lineHeight = 14.sp,
