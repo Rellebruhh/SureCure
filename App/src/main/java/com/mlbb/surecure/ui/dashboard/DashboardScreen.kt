@@ -58,9 +58,9 @@ private val UnsafeRowBackground = Color(0xFFFFE8E8)
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun DashboardScreen(
-    onCameraClick: () -> Unit,
-    onScanClick: (ScanHistoryEntryPreview) -> Unit = {},
-    sections: List<ScanHistorySection> = sampleScanHistory()
+    sections: List<ScanHistorySection>,
+    onCameraClick: () -> Unit = {},
+    onScanClick: (ScanHistoryEntry) -> Unit = {},
 ) {
     Column(
         modifier = Modifier
@@ -169,7 +169,7 @@ private fun BrandMark() {
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 private fun ScanHistoryRow(
-    entry: ScanHistoryEntryPreview,
+    entry: ScanHistoryEntry,
     onClick: () -> Unit
 ) {
     val isSafe = entry.safety == ScanSafety.SAFE
@@ -215,7 +215,7 @@ private fun ScanHistoryRow(
 }
 
 @Composable
-private fun MedicineThumbnail(entry: ScanHistoryEntryPreview) {
+private fun MedicineThumbnail(entry: ScanHistoryEntry) {
     Image(
         painter = painterResource(
             id = entry.thumbnailResId
