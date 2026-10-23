@@ -5,6 +5,11 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.RequiresApi
 import com.mlbb.surecure.R
 import java.time.Instant
+import java.time.LocalDate
+import java.time.YearMonth
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
+import java.util.Locale
 
 /**
  * Demo data models for the dashboard's scan history.
@@ -15,11 +20,12 @@ enum class ScanSafety {
     UNSAFE
 }
 
-data class ScanHistoryEntryPreview(
+data class ScanHistoryEntry(
     val id: String,
     val safety: ScanSafety,
     val scannedOn: Instant,
-    @DrawableRes val thumbnailResId: Int = R.drawable.test_thumbnail
+    val scanDetails: String = "",
+    @DrawableRes val thumbnailResId: Int = R.drawable.test_thumbnail,
 )
 
 /**
@@ -29,29 +35,51 @@ data class ScanHistoryEntryPreview(
  */
 data class ScanHistorySection(
     val timePeriod: String,
-    val entries: List<ScanHistoryEntryPreview>
+    val entries: List<ScanHistoryEntry>
 )
 
-/** Text and grouping preserved from the Figma HTML export. */
+/**
+ * Groups scan history into calendar periods, newest first.
+ *
+ * Uses the supplied timezone to determine calendar dates.
+ * Entries older than one year are grouped together.
+ */
 @RequiresApi(Build.VERSION_CODES.O)
-fun sampleScanHistory(): List<ScanHistorySection> = listOf(
-    ScanHistorySection(
-        timePeriod = "This Month",
-        entries = listOf(
-            ScanHistoryEntryPreview("scan-1", ScanSafety.SAFE, Instant.now()),
-            ScanHistoryEntryPreview("scan-2", ScanSafety.SAFE, Instant.now()),
-            ScanHistoryEntryPreview("scan-3", ScanSafety.UNSAFE, Instant.now())
+fun groupScanHistory(
+    entries: List<ScanHistoryEntry>,
+    zoneId: ZoneId = ZoneId.systemDefault()
+): List<ScanHistorySection> {
+    val today: LocalDate = LocalDate.now(zoneId)
+    val currentMonth: YearMonth = YearMonth.from(today)
+
+    val sortedEntries: List<ScanHistoryEntry> = entries.sortedByDescending { it.scannedOn }
+
+    val groupedEntries: Map<String, List<ScanHistoryEntry>> = sortedEntries.groupBy { entry ->
+        val date = entry.scannedOn
+            .atZone(zoneId)
+            .toLocalDate()
+
+        when {
+            YearMonth.from(date) == currentMonth ->
+                "This Month"
+
+            date.isBefore(today.minusYears(1)) ->
+                "Over A Year Ago"
+
+            else ->
+                YearMonth.from(date).format(
+                    DateTimeFormatter.ofPattern(
+                        "MMMM yyyy",
+                        Locale.getDefault()
+                    )
+                )
+        }
+    }
+
+    return groupedEntries.map { (period, periodEntries) ->
+        ScanHistorySection(
+            timePeriod = period,
+            entries = periodEntries
         )
-    ),
-    ScanHistorySection(
-        timePeriod = "September",
-        entries = listOf(
-            ScanHistoryEntryPreview("scan-4", ScanSafety.SAFE, Instant.now()),
-            ScanHistoryEntryPreview("scan-5", ScanSafety.SAFE, Instant.now()),
-            ScanHistoryEntryPreview("scan-6", ScanSafety.SAFE, Instant.now()),
-            ScanHistoryEntryPreview("scan-6", ScanSafety.SAFE, Instant.now()),
-            ScanHistoryEntryPreview("scan-6", ScanSafety.SAFE, Instant.now()),
-            ScanHistoryEntryPreview("scan-6", ScanSafety.SAFE, Instant.now())
-        )
-    )
-)
+    }
+}
