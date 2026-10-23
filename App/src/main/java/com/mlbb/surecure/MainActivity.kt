@@ -24,6 +24,7 @@ import com.mlbb.surecure.ui.dashboard.groupScanHistory
 import com.mlbb.surecure.ui.theme.SureCureTheme
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
+import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
     @RequiresApi(Build.VERSION_CODES.O)
@@ -51,6 +52,22 @@ class MainActivity : ComponentActivity() {
                 }
                 DashboardScreen(
                     sections = sections,
+                    isRefreshing = isRefreshing,
+                    onRefreshClick = {
+                        if (!isRefreshing) {
+                            scope.launch {
+                                isRefreshing = true
+                                try {
+                                    val entries = repository.loadEntries(
+                                        forceRefresh = true
+                                    )
+                                    sections = groupScanHistory(entries)
+                                } finally {
+                                    isRefreshing = false
+                                }
+                            }
+                        }
+                    }
                 )
             }
         }

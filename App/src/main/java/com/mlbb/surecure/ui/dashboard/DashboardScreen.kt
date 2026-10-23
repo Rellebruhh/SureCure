@@ -23,6 +23,9 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -59,7 +62,9 @@ private val UnsafeRowBackground = Color(0xFFFFE8E8)
 @Composable
 fun DashboardScreen(
     sections: List<ScanHistorySection>,
+    isRefreshing: Boolean = false,
     onCameraClick: () -> Unit = {},
+    onRefreshClick: () -> Unit = {},
     onScanClick: (ScanHistoryEntry) -> Unit = {},
 ) {
     Column(
@@ -106,14 +111,37 @@ fun DashboardScreen(
             }
         }
 
+
         Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 8.dp, bottom = 22.dp),
+            modifier = Modifier.fillMaxWidth().padding(bottom = 24.dp),
             horizontalArrangement = Arrangement.Center,
-            verticalAlignment = Alignment.CenterVertically
+            verticalAlignment = Alignment.CenterVertically,
         ) {
-            CameraButton(onClick = onCameraClick)
+            Spacer(modifier = Modifier.width(64.dp))
+
+            // Replace CameraButton with your existing camera button composable.
+            CameraButton(
+                onClick = onCameraClick,
+            )
+
+            Spacer(modifier = Modifier.width(8.dp))
+
+            IconButton(
+                onClick = onRefreshClick,
+                enabled = !isRefreshing
+            ) {
+                if (isRefreshing) {
+                    CircularProgressIndicator(
+                        modifier = Modifier.size(24.dp),
+                        strokeWidth = 2.dp
+                    )
+                } else {
+                    Icon(
+                        painter = painterResource(R.drawable.refresh_icon),
+                        contentDescription = "Refresh scan history"
+                    )
+                }
+            }
         }
     }
 }
