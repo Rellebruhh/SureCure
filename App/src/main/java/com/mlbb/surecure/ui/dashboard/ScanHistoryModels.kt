@@ -48,6 +48,9 @@ fun sampleScanHistory(): List<ScanHistorySection> = listOf(
         entries = listOf(
             ScanHistoryEntryPreview("scan-4", ScanSafety.SAFE, Instant.now()),
             ScanHistoryEntryPreview("scan-5", ScanSafety.SAFE, Instant.now()),
+            ScanHistoryEntryPreview("scan-6", ScanSafety.SAFE, Instant.now()),
+            ScanHistoryEntryPreview("scan-6", ScanSafety.SAFE, Instant.now()),
+            ScanHistoryEntryPreview("scan-6", ScanSafety.SAFE, Instant.now()),
             ScanHistoryEntryPreview("scan-6", ScanSafety.SAFE, Instant.now())
         )
     )
