@@ -1,6 +1,7 @@
 package com.mlbb.surecure.ui.result
 
 import android.net.Uri
+import android.content.Intent
 import android.os.Build
 import androidx.annotation.RequiresApi
 import android.content.Context
@@ -444,6 +445,10 @@ private fun VerdictStage(
             style = MaterialTheme.typography.bodySmall
         )
     }
+    if (verdict.level != VerdictLevel.GREEN) {
+        FdaLink("Check the registration on the FDA verification portal", "https://verification.fda.gov.ph")
+        FdaLink("Report to FDA Philippines", "https://www.fda.gov.ph")
+    }
     if (onFindDrugstore != null) {
         OutlinedButton(onClick = onFindDrugstore, modifier = Modifier.fillMaxWidth()) {
             Text("Find a nearby drugstore")
@@ -496,4 +501,13 @@ private suspend fun saveToHistory(context: Context, id: String, verdict: Verdict
             )
         )
     }
+}
+
+/** A plain text link that opens in the phone's browser (no WebView). */
+@Composable
+private fun FdaLink(label: String, url: String) {
+    val context = LocalContext.current
+    TextButton(onClick = {
+        runCatching { context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url))) }
+    }) { Text(label) }
 }
