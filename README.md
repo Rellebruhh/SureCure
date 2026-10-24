@@ -202,7 +202,16 @@ med-images/              team photos used in the fine-tuning experiment
 
 ## 🤝 How we built it
 
-This project used **AI-assisted programming with human review the whole way through.** AI coding assistants helped draft code, the notebook, the data-cleaning scripts and these docs, and a separate assistant acted as a read-only reviewer. Nothing went in without a team member reading it, running it and checking the result. The calls that matter were ours: what data to trust, what counts as red, amber or green, and how to read the results. When the AI got something wrong, we fixed it and kept the record, which is why the failed experiments are still in the notebook.
+<p>
+  <img alt="Claude" src="https://img.shields.io/badge/Claude-coding%20assistant-D97757?logo=claude&logoColor=white&style=flat" />
+  <img alt="Gemini" src="https://img.shields.io/badge/Gemini-read--only%20reviewer-8E75B2?logo=googlegemini&logoColor=white&style=flat" />
+  <img alt="Human review" src="https://img.shields.io/badge/every%20change-human%20reviewed-2E8B57?style=flat" />
+</p>
+
+This project used **AI-assisted programming with human review the whole way through.** Claude helped draft code, the notebook, the data-cleaning scripts and these docs. Gemini worked as a second pair of eyes that could inspect the code but never change it. Nothing went in without a team member reading it, running it and checking the result.
+
+What the AI couldn't do for us was the **systems thinking**, and that's where most of our time went. SureCure isn't one model; it's a chain: camera → barcode → model → guard → user confirmation → rules → FDA tables → verdict → next step. A weak link anywhere breaks the whole thing, so we designed each piece around the others:
+
 
 ## 📚 References
 
