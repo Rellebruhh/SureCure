@@ -1,0 +1,61 @@
+{
+  "input": {
+    "name": "image",
+    "shape": [
+      1,
+      3,
+      224,
+      224
+    ],
+    "dtype": "float32",
+    "range": [
+      0,
+      1
+    ],
+    "channels": "RGB",
+    "preprocess": "EXIF rotate upright, letterbox to square with fill_rgb, resize to 224x224 bilinear, divide by 255"
+  },
+  "fill_rgb": [
+    124,
+    116,
+    104
+  ],
+  "outputs": {
+    "logits": "product scores in labels.json order",
+    "energy": "out-of-scope score, -T*logsumexp(logits/T); reject product ID if energy > guard.threshold",
+    "ood_z": "Mahalanobis score (synthetic fit); not used by the app when ood_z_enabled is false"
+  },
+  "decision_order": [
+    "barcode found in product table -> use it, skip photo",
+    "guard score > guard.threshold -> not recognized: product list + code check",
+    "confidence < confidence_threshold -> top-3 picker",
+    "otherwise -> show top-1 with 'Not this?'"
+  ],
+  "threshold_z": 6.033319068259306,
+  "alpha": 0.05,
+  "n_cal": 80,
+  "best_epoch": null,
+  "seed": 42,
+  "run_name": "run_20261024_0546",
+  "aug_v2": false,
+  "adabn_used": false,
+  "temperature": 1.110940977180524,
+  "confidence_threshold": 0.7043451559751407,
+  "confidence_rule": "show the product list if max(softmax(logits / temperature)) < confidence_threshold",
+  "guard_verdict": "NOT EFFECTIVE",
+  "finetuned_on_team_photos": false,
+  "guard": {
+    "score": "energy",
+    "threshold": -3.5760480484369013,
+    "onnx_output": "energy",
+    "method": "energy",
+    "alpha": 0.05,
+    "n_cal": 80,
+    "rule": "reject the product ID (show the product list / code check) when score > threshold",
+    "energy_formula": "-temperature * logsumexp(logits / temperature)",
+    "msp_formula": "-max(softmax(logits / temperature))",
+    "class_holdout_auroc": 0.8108129743707411,
+    "false_rejection_test": 0.06440677966101695
+  },
+  "ood_z_enabled": false
+}
