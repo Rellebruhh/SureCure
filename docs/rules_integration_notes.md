@@ -108,3 +108,26 @@ Python: `pytest -q rules/tests`.
   advisory"), EAN-13 barcodes, registration validity dates.
 - **App models.** The app's `ScanSafety { SAFE, UNSAFE }` and "Marked safe/unsafe" text need three
   levels and the wording above. Not changed here; to be agreed with the app dev.
+
+## Barcode table (2026-10-24)
+
+- `data/fda/barcodes.csv` (source) and `App/src/main/assets/fda/barcodes.csv` (bundled copy; the
+  drift test now covers it too): 18 EAN-13 codes for 14 of the 20 products, from online pharmacy
+  listings. All pass the check digit, no duplicates, every `product` is a `labels.json` name.
+  Collected by hand, not built by `build_fda_tables.py`.
+- No engine change was needed: `FdaTablesLoader` already reads `barcodes.csv` when it exists.
+  The engine uses only `ean13` and `product`.
+- Variant packs map like `registrations.csv` does (Buscopan Plus → Buscopan, Flanax Forte → Flanax,
+  Decolgen Forte → Decolgen, Sinecod Forte → Sinecod, Ascof Forte → Lagundi), so a variant's barcode
+  and registration don't contradict each other.
+- Still without a barcode: Ascozin, Lactezin, Neurogen E, Rinityn, Rogin E, Omeprazole, plus plain
+  Buscopan 10 mg and the regular Imodium pack. A valid code that isn't listed gives amber "not in
+  the barcode table", never red.
+- Barcode first (decision order step 1): `FdaTables.productForBarcode(code)` returns the product for
+  a valid, listed code, else null (then run the photo model). Not wired into the screens yet: the
+  app has no barcode scanner, and the scan-result flow is in an open PR.
+
+Tests (`RulesBarcodeTest`, 7/7; expected reasons are the Python engine's output):
+Bioflu + `4807788526762` → no barcode reason; Biogesic + `4807788526762` → red "Barcode belongs to
+Bioflu, not Biogesic."; valid unknown `4807788000019` → amber "not in the barcode table"; bad check
+digit `4807788526763` → amber, never red; Biogesic barcode + Bioflu registration → red; lookup helper.

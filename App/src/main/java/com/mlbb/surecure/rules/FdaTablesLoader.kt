@@ -6,8 +6,8 @@ import java.io.FileNotFoundException
 /**
  * Loads the FDA tables from assets/fda/ once and caches them.
  *
- * registrations.csv and counterfeit_lots.csv are required. barcodes.csv is optional: it isn't
- * collected yet, and until it is, every scanned barcode gives amber "not in the barcode table".
+ * registrations.csv and counterfeit_lots.csv are required. barcodes.csv is optional (it covers
+ * 14 of the 20 products so far); a scanned barcode not in it gives amber "not in the barcode table".
  * The tables are built by scripts/build_fda_tables.py from data/fda/raw/; don't edit them by hand.
  */
 object FdaTablesLoader {
