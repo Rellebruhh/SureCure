@@ -167,3 +167,16 @@ Existing files touched (glue only):
 - Saving the result to scan history: needs `ScanSafety` to have three levels (app dev's model).
 - The screen state is not kept across rotation or process death.
 - The screens compile and their logic is unit tested, but have not been run on a device yet.
+
+## Coordination update (2026-10-24, after #5 to #8 merged)
+
+- **Stage 2 barcode field.** The scan-result screen now has a "Barcode number" field (spaces removed,
+  nothing else changed), so the barcode table from #6 is used on real scans: another product's barcode
+  gives red, an unlisted one amber, a misread one amber.
+- **Nearby drugstores.** Amber and red results offer "Find a nearby drugstore"
+  (`ui/result/NearbyDrugstores.kt`): one coarse location reading, or a city search. Adds
+  `ACCESS_COARSE_LOCATION` to the manifest.
+- **README.** The abstract now names the energy-score guard; added status, layout and test sections.
+- Still for the app dev or the team: saving results to scan history (three-level `ScanSafety`), what the
+  dashboard's "Do you have the barcode?" answer should do, the red-for-mismatched-codes wording in
+  Figure 1, and the `:app` / `App/` build issue.

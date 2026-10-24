@@ -50,8 +50,8 @@ k edge cases; asset has 3,651 rows, all inside the Philippines, all PSGC codes 1
 
 ## Not done yet
 
-- **Step 4, "Find a nearby drugstore" on amber and red results:** waits for the scan-result screen
-  (PR #5). Plan: Android's built-in `LocationManager` with `ACCESS_COARSE_LOCATION` only (one reading,
-  no tracking, no Play Services); if refused, the city search / province picker above. List only;
-  no map library in the project, so no map.
+- **"Find a nearby drugstore" on amber and red results:** done in `ui/result/NearbyDrugstores.kt`.
+  One approximate reading through Android's `LocationManager` (`ACCESS_COARSE_LOCATION` only, network
+  provider, 15 s limit, else the last known reading); nothing is stored or sent. If permission is refused
+  or no location comes back, the user searches a city. A list with the disclaimer; no map library.
 - **Step 5, reports by municipality:** skipped, no backend in the project.

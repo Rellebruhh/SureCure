@@ -125,7 +125,8 @@ Python: `pytest -q rules/tests`.
   the barcode table", never red.
 - Barcode first (decision order step 1): `FdaTables.productForBarcode(code)` returns the product for
   a valid, listed code, else null (then run the photo model). Not wired into the screens yet: the
-  app has no barcode scanner, and the scan-result flow is in an open PR.
+  app has no barcode scanner. The scan-result screen has a typed barcode field (Stage 2), so the barcode
+  rules do run on real scans; barcode first waits for a scanner and the team's choice of order.
 
 Tests (`RulesBarcodeTest`, 7/7; expected reasons are the Python engine's output):
 Bioflu + `4807788526762` → no barcode reason; Biogesic + `4807788526762` → red "Barcode belongs to

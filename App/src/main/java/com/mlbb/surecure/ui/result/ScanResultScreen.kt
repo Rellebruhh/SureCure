@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -35,6 +36,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import com.mlbb.surecure.ml.ClassifierResult
@@ -60,6 +62,7 @@ private sealed interface Phase {
     data class Product(val step: ScanFlow.ProductStep) : Phase
     data class Codes(val product: String?) : Phase
     data class Result(val verdict: Verdict, val product: String?) : Phase
+    data class Nearby(val result: Result) : Phase
 }
 
 /**
@@ -135,8 +138,13 @@ fun ScanResultScreen(
             is Phase.Result -> VerdictStage(
                 verdict = p.verdict,
                 onEditCodes = { phase = Phase.Codes(p.product) },
+                onFindDrugstore = if (ScanFlow.offersNearbyDrugstores(p.verdict)) {
+                    { phase = Phase.Nearby(p) }
+                } else null,
                 onDone = onDone,
             )
+
+            is Phase.Nearby -> NearbyDrugstores(onBack = { phase = p.result })
         }
     }
 }
@@ -229,6 +237,14 @@ private fun CodeStage(
         style = MaterialTheme.typography.bodySmall
     )
     OutlinedTextField(
+        value = entry.barcode,
+        onValueChange = { onEntryChange(entry.copy(barcode = it)) },
+        label = { Text("Barcode number (13 digits under the bars)") },
+        singleLine = true,
+        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+        modifier = Modifier.fillMaxWidth()
+    )
+    OutlinedTextField(
         value = entry.lot,
         onValueChange = { onEntryChange(entry.copy(lot = it)) },
         label = { Text("Lot / batch number") },
@@ -275,7 +291,12 @@ private fun CodeStage(
 // --------------------------------------------------------------------------- Stage 3
 
 @Composable
-private fun VerdictStage(verdict: Verdict, onEditCodes: () -> Unit, onDone: () -> Unit) {
+private fun VerdictStage(
+    verdict: Verdict,
+    onEditCodes: () -> Unit,
+    onFindDrugstore: (() -> Unit)?,
+    onDone: () -> Unit,
+) {
     val (color, background) = when (verdict.level) {
         VerdictLevel.RED -> SureCureRed to RedBackground
         VerdictLevel.AMBER -> SureCureAmber to AmberBackground
@@ -308,6 +329,11 @@ private fun VerdictStage(verdict: Verdict, onEditCodes: () -> Unit, onDone: () -
                 "It doesn't prove the medicine is genuine.",
             style = MaterialTheme.typography.bodySmall
         )
+    }
+    if (onFindDrugstore != null) {
+        OutlinedButton(onClick = onFindDrugstore, modifier = Modifier.fillMaxWidth()) {
+            Text("Find a nearby drugstore")
+        }
     }
     OutlinedButton(onClick = onEditCodes, modifier = Modifier.fillMaxWidth()) { Text("Edit the codes") }
     Button(

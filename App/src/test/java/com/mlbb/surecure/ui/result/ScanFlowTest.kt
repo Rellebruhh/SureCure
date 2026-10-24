@@ -97,6 +97,53 @@ class ScanFlowTest {
         assertEquals("No match with FDA counterfeit records", ScanFlow.headline(green))
     }
 
+    private val tablesWithBarcodes = FdaTables.fromCsv(
+        File("src/main/assets/fda/registrations.csv").readText(),
+        File("src/main/assets/fda/counterfeit_lots.csv").readText(),
+        File("src/main/assets/fda/barcodes.csv").readText(),
+    )
+
+    @Test
+    fun typedBarcodeReachesTheVerdict() {
+        // Printed in groups on the pack; spaces are removed, nothing else is changed.
+        val scan = scanFor("Biogesic", ScanFlow.CodeEntry(barcode = "4 807788 526762", lot = "ZZ99999"))
+        assertEquals("4807788526762", scan.barcode)
+        val v = verify(scan, tablesWithBarcodes, today)
+        assertEquals(VerdictLevel.RED, v.level)
+        assertEquals("Barcode belongs to Bioflu, not Biogesic.", v.reasons[0])
+        assertEquals(ScanFlow.RED_MISMATCH_HEADLINE, ScanFlow.headline(v))
+
+        val own = verify(
+            scanFor("Bioflu", ScanFlow.CodeEntry(barcode = "4807788526762", lot = "ZZ99999", regNo = "DR-XY34482")),
+            tablesWithBarcodes, today
+        )
+        assertEquals(VerdictLevel.GREEN, own.level)
+
+        // A digit short: passed on as typed, the engine says amber (check digit), not red.
+        val short = scanFor("Biogesic", ScanFlow.CodeEntry(barcode = "480778852676", lot = "ZZ99999"))
+        assertEquals("480778852676", short.barcode)
+        assertEquals(VerdictLevel.AMBER, verify(short, tablesWithBarcodes, today).level)
+        assertNull(scanFor("Biogesic", ScanFlow.CodeEntry(barcode = "   ")).barcode)
+    }
+
+    @Test
+    fun nearbyDrugstoresOnlyOnAmberAndRed() {
+        val red = verify(scanFor("Biogesic", ScanFlow.CodeEntry(lot = "23651568")), tables, today)
+        val amber = verify(scanFor("Myra_E", ScanFlow.CodeEntry(lot = "ZZ99999")), tables, today)
+        val green = verify(scanFor("Biogesic", ScanFlow.CodeEntry(lot = "ZZ99999", regNo = "DR-153")), tables, today)
+        assertTrue(ScanFlow.offersNearbyDrugstores(red))
+        assertTrue(ScanFlow.offersNearbyDrugstores(amber))
+        assertTrue(!ScanFlow.offersNearbyDrugstores(green))
+    }
+
+    @Test
+    fun distanceFormatting() {
+        assertEquals("430 m", ScanFlow.formatDistance(0.425))
+        assertEquals("10 m", ScanFlow.formatDistance(0.001))
+        assertEquals("1.6 km", ScanFlow.formatDistance(1.573))
+        assertEquals("12 km", ScanFlow.formatDistance(12.34))
+    }
+
     private fun scanFor(product: String, entry: ScanFlow.CodeEntry) =
         (ScanFlow.parse(product, entry) as ScanFlow.Parsed.Ok).scan
 }
