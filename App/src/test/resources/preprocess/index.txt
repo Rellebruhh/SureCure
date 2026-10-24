@@ -1,0 +1,11 @@
+down_o6 300 135 6 letterbox
+up_o1 150 61 1 letterbox
+exact_o8 100 224 8 letterbox
+orient_o1 7 5 1 orient
+orient_o2 7 5 2 orient
+orient_o3 7 5 3 orient
+orient_o4 7 5 4 orient
+orient_o5 7 5 5 orient
+orient_o6 7 5 6 orient
+orient_o7 7 5 7 orient
+orient_o8 7 5 8 orient

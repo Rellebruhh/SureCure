@@ -1,0 +1,3 @@
+# Raw pixel fixtures: never convert line endings.
+*.in binary
+*.out binary
