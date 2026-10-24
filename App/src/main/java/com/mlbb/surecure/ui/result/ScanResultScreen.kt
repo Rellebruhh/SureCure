@@ -56,6 +56,8 @@ import com.mlbb.surecure.rules.VerdictLevel
 import com.mlbb.surecure.rules.verify
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
@@ -94,6 +96,8 @@ fun ScanResultScreen(
     val scope = rememberCoroutineScope()
     // One history entry per scan: re-checking after "Edit the codes" replaces it.
     val historyId = remember { UUID.randomUUID().toString() }
+    // The pending history save; "Done" waits for it so the dashboard shows this scan.
+    var saveJob by remember { mutableStateOf<Job?>(null) }
     var phase by remember { mutableStateOf<Phase>(Phase.Loading) }
     var tables by remember { mutableStateOf<FdaTables?>(null) }
     var modelLabels by remember { mutableStateOf<List<String>>(emptyList()) }
@@ -207,7 +211,10 @@ fun ScanResultScreen(
                         val verdict = verify(scan, t)
                         phase = Phase.Result(verdict, p.product)
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                            scope.launch { saveToHistory(context, historyId, verdict) }
+                            // NonCancellable: leaving the screen right away must not drop the save.
+                            saveJob = scope.launch {
+                                withContext(NonCancellable) { saveToHistory(context, historyId, verdict) }
+                            }
                         }
                     }
                     else notice = "The FDA tables couldn't be loaded."
@@ -220,7 +227,7 @@ fun ScanResultScreen(
                 onFindDrugstore = if (ScanFlow.offersNearbyDrugstores(p.verdict)) {
                     { phase = Phase.Nearby(p) }
                 } else null,
-                onDone = onDone,
+                onDone = { scope.launch { saveJob?.join(); onDone() } },
             )
 
             is Phase.Nearby -> NearbyDrugstores(onBack = { phase = p.result })
@@ -485,7 +492,7 @@ private fun Photo(uri: Uri, description: String) {
  * SAFE and red or amber are UNSAFE; the real level, product and reasons go into scanDetails.
  */
 @RequiresApi(Build.VERSION_CODES.O)
-private suspend fun saveToHistory(context: Context, id: String, verdict: Verdict) {
+internal suspend fun saveToHistory(context: Context, id: String, verdict: Verdict) {
     val details = buildString {
         append(ScanFlow.headline(verdict)).append(" (").append(verdict.level.name.lowercase()).append(")")
         verdict.productChecked?.let { append(". Product: ").append(ScanFlow.displayName(it)) }
