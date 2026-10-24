@@ -12,7 +12,6 @@
 <img alt="Kotlin" src="https://img.shields.io/badge/Kotlin-Jetpack%20Compose-7F52FF?logo=kotlin&logoColor=white&style=flat" />
 <img alt="ONNX Runtime" src="https://img.shields.io/badge/ONNX%20Runtime-on--device-005CED?logo=onnx&logoColor=white&style=flat" />
 <img alt="PyTorch" src="https://img.shields.io/badge/PyTorch-ResNet--18-EE4C2C?logo=pytorch&logoColor=white&style=flat" />
-<img alt="Status" src="https://img.shields.io/badge/status-competition%20prototype-F2B705?style=flat" />
 <img alt="Works offline" src="https://img.shields.io/badge/internet-not%20required-2E8B57?style=flat" />
 
 </div>
@@ -57,9 +56,10 @@ Fakes are made to look right, so looking closely doesn't help much. What *does* 
 | 🏷️ **Barcode first** | A listed barcode identifies the product straight away |
 | 🧠 **On-device recognition** | A small vision model recognizes 20 common Philippine OTC products, with no internet needed |
 | 🙅 **Knows what it doesn't know** | Unfamiliar packs are flagged instead of guessed |
-| 🔎 **Code check** | Lot, registration number, barcode and dates go through FDA-based rules |
+| 🔎 **Code check** | The barcode, lot, registration number and dates are read on the phone, confirmed by the user, and checked against FDA-based rules |
 | 🚦 **Clear verdict** | 🔴 red, 🟡 amber or 🟢 green, always with the reasons |
-| 📍 **Next step** | Amber and red results point to nearby established drugstores |
+| 📍 **Next step** | Amber and red results link to FDA verification and reporting, and point to nearby established drugstores |
+| 🗒️ **Scan history** | Every verdict is saved on the phone, grouped by month |
 
 ## 🗂️ Where the data comes from
 
@@ -87,7 +87,7 @@ flowchart LR
     G -- yes, confident --> D
     L --> D
     T --> D
-    D --> E[User enters lot, reg. no., dates]
+    D --> E[Codes read on device,<br/>user confirms]
     E --> R{Rules vs FDA tables}
     R --> V1[🔴 Red]
     R --> V2[🟡 Amber]
@@ -108,18 +108,6 @@ flowchart LR
 - **One source of truth.** `meta.json` carries every number the app needs (temperature, thresholds, padding colour). The app reads it instead of hard-coding values.
 
 </details>
-
-### Where the app is right now
-
-| Stage | Status |
-|---|---|
-| 📸 Two-photo guided capture | ✅ Done (blur and glare check not yet) |
-| 🏷️ Barcode first | ✅ Done with a typed barcode; camera barcode scanning not yet |
-| 🧠 On-device recognition + guard + top-3 picker | ✅ Done |
-| ⌨️ Code entry | ✅ Typed by the user next to the code-panel photo; automatic text recognition not yet |
-| 🚦 Rules and verdict with reasons | ✅ Done |
-| 📍 Nearby drugstores on amber and red | ✅ Done |
-| 🗒️ Scan history and FDA reporting links | 🛠️ In progress |
 
 ## 📊 What we found
 
@@ -147,7 +135,6 @@ Measured on real photos that were never used for training or any tuning decision
 
 ## 🔭 Where it goes next
 
-- 📷 **Read the codes automatically** with on-device barcode scanning and text recognition.
 - 🔁 **Learn from real use:** barcode-confirmed scans (opt-in) become new training photos taken on real phones.
 - 🔄 **Live FDA updates** with the advisory number and link shown on every red result.
 - 🗺️ **Spot outbreaks:** opt-in reports grouped by municipality, shown only once there are at least 5, could tell the FDA where a fake lot is spreading.
@@ -212,6 +199,12 @@ This project used **AI-assisted programming with human review the whole way thro
 
 What the AI couldn't do for us was the **systems thinking**, and that's where most of our time went. SureCure isn't one model; it's a chain: camera → barcode → model → guard → user confirmation → rules → FDA tables → verdict → next step. A weak link anywhere breaks the whole thing, so we designed each piece around the others:
 
+- 🔗 **Contracts between parts.** The model, the app and the notebook share one `meta.json`, and golden test images prove the phone gives the same answer as the training code.
+- 🧯 **Failure paths, not just happy paths.** Every stage has a fallback (unknown pack → product list, unsure → top 3, missing code → amber), so a user never hits a dead end.
+- ⚖️ **Who decides what.** The photo only identifies the product; the printed codes decide the verdict. That split came from asking how a counterfeiter would beat each part.
+- 🔁 **A loop, not a one-off.** Data scripts rebuild every table, tests check every rule against the Python reference, and confirmed scans can feed future training.
+
+The calls that matter were ours: what data to trust, what counts as red, amber or green, and how to read the results. When the AI got something wrong, we fixed it and kept the record, which is why the failed experiments are still in the notebook.
 
 ## 📚 References
 
