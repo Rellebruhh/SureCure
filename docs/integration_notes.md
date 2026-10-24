@@ -177,6 +177,12 @@ Existing files touched (glue only):
   (`ui/result/NearbyDrugstores.kt`): one coarse location reading, or a city search. Adds
   `ACCESS_COARSE_LOCATION` to the manifest.
 - **README.** The abstract now names the energy-score guard; added status, layout and test sections.
-- Still for the app dev or the team: saving results to scan history (three-level `ScanSafety`), what the
-  dashboard's "Do you have the barcode?" answer should do, the red-for-mismatched-codes wording in
-  Figure 1, and the `:app` / `App/` build issue.
+- **Barcode first (decided 2026-10-24).** Follows `meta.decision_order` step 1. When the user answers
+  "Yes, I have it" on the dashboard, the scan starts with a typed barcode: if it's in the barcode table,
+  the product comes from it ("The barcode says this is ...", user confirms) and the photo model is
+  skipped; if it's valid but not listed, the photo model runs and the barcode stays in the scan (amber);
+  if it's unreadable, the user retypes it or uses the photo. "No" keeps photo first. The dashboard's
+  answer is passed through the dashboard entry's `savedStateHandle` (`AppNavHost.kt`). Figure 1 should
+  show the barcode check before product identification. A camera barcode scanner (ML Kit) is still to come.
+- Still for the app dev or the team: saving results to scan history (three-level `ScanSafety`), the
+  red-for-mismatched-codes wording in Figure 1, and the `:app` / `App/` build issue.

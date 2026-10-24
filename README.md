@@ -11,7 +11,7 @@ The app follows the pipeline in the paper (Figure 1):
 | Stage | What | Status |
 |---|---|---|
 | 0 | Guided capture: pack front, then the code panel | Camera screen done; blur and glare check not yet |
-| 1 | Product identification (ResNet-18 on device, ONNX Runtime) and manual selection | Done |
+| 1 | Product identification: barcode first if the user has one (listed barcode → that product, photo model skipped), else ResNet-18 on device (ONNX Runtime), else manual selection; the user always confirms | Done (barcode typed; scanner not yet) |
 | 2 | Code reading: barcode, lot, registration number, expiry, manufacture date | Typed by the user, with the code-panel photo shown; on-device text recognition (ML Kit) not yet |
 | 3 | Verification rules against the FDA tables: red, amber or green with every reason | Done |
 | 4 | Guided visual check and reporting | Not yet; amber and red results offer nearby chain drugstores |

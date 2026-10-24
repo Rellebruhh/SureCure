@@ -127,6 +127,39 @@ class ScanFlowTest {
     }
 
     @Test
+    fun barcodeFirstFollowsTheDecisionOrder() {
+        // In the table: skip the photo model, the user confirms the product.
+        assertEquals(
+            ScanFlow.BarcodeFirst.Found("Bioflu", "4807788526762"),
+            ScanFlow.barcodeFirst("4 807788 526762", tablesWithBarcodes)
+        )
+        assertEquals(
+            ScanFlow.ProductStep.Confirm("Bioflu"),
+            (ScanFlow.barcodeFirst("4807788526762", tablesWithBarcodes) as ScanFlow.BarcodeFirst.Found)
+                .let { ScanFlow.ProductStep.Confirm(it.label) }
+        )
+        // Valid but not listed: photo model as usual; the barcode stays in the scan (amber later).
+        assertEquals(
+            ScanFlow.BarcodeFirst.NotInTable("4807788000019"),
+            ScanFlow.barcodeFirst("4807788000019", tablesWithBarcodes)
+        )
+        // Typos: wrong check digit or too short.
+        assertEquals(
+            ScanFlow.BarcodeFirst.Unreadable("4807788526763"),
+            ScanFlow.barcodeFirst("4807788526763", tablesWithBarcodes)
+        )
+        assertEquals(
+            ScanFlow.BarcodeFirst.Unreadable("480778852676"),
+            ScanFlow.barcodeFirst("480778852676", tablesWithBarcodes)
+        )
+        // Without a barcode table every valid code is "not in table", never a product.
+        assertEquals(
+            ScanFlow.BarcodeFirst.NotInTable("4807788526762"),
+            ScanFlow.barcodeFirst("4807788526762", tables)
+        )
+    }
+
+    @Test
     fun nearbyDrugstoresOnlyOnAmberAndRed() {
         val red = verify(scanFor("Biogesic", ScanFlow.CodeEntry(lot = "23651568")), tables, today)
         val amber = verify(scanFor("Myra_E", ScanFlow.CodeEntry(lot = "ZZ99999")), tables, today)
