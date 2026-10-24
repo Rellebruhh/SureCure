@@ -1,6 +1,15 @@
 package com.mlbb.surecure.ui.result
 
 import android.net.Uri
+import android.content.Intent
+import android.os.Build
+import androidx.annotation.RequiresApi
+import android.content.Context
+import com.mlbb.surecure.data.repository.ScanHistoryRepository
+import com.mlbb.surecure.ui.dashboard.ScanHistoryEntry
+import com.mlbb.surecure.ui.dashboard.ScanSafety
+import java.time.Instant
+import java.util.UUID
 import android.widget.ImageView
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -83,6 +92,8 @@ fun ScanResultScreen(
 ) {
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
+    // One history entry per scan: re-checking after "Edit the codes" replaces it.
+    val historyId = remember { UUID.randomUUID().toString() }
     var phase by remember { mutableStateOf<Phase>(Phase.Loading) }
     var tables by remember { mutableStateOf<FdaTables?>(null) }
     var modelLabels by remember { mutableStateOf<List<String>>(emptyList()) }
@@ -192,7 +203,13 @@ fun ScanResultScreen(
                 onChangeProduct = { phase = Phase.Product(ScanFlow.ProductStep.ChooseFromList) },
                 onCheck = { scan ->
                     val t = tables
-                    if (t != null) phase = Phase.Result(verify(scan, t), p.product)
+                    if (t != null) {
+                        val verdict = verify(scan, t)
+                        phase = Phase.Result(verdict, p.product)
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                            scope.launch { saveToHistory(context, historyId, verdict) }
+                        }
+                    }
                     else notice = "The FDA tables couldn't be loaded."
                 },
             )
@@ -428,6 +445,10 @@ private fun VerdictStage(
             style = MaterialTheme.typography.bodySmall
         )
     }
+    if (verdict.level != VerdictLevel.GREEN) {
+        FdaLink("Check the registration on the FDA verification portal", "https://verification.fda.gov.ph")
+        FdaLink("Report to FDA Philippines", "https://www.fda.gov.ph")
+    }
     if (onFindDrugstore != null) {
         OutlinedButton(onClick = onFindDrugstore, modifier = Modifier.fillMaxWidth()) {
             Text("Find a nearby drugstore")
@@ -457,4 +478,36 @@ private fun Photo(uri: Uri, description: String) {
             .height(220.dp)
             .clip(RoundedCornerShape(12.dp))
     )
+}
+
+/**
+ * Saves the verdict to the dashboard's scan history. The history only has SAFE / UNSAFE, so green is
+ * SAFE and red or amber are UNSAFE; the real level, product and reasons go into scanDetails.
+ */
+@RequiresApi(Build.VERSION_CODES.O)
+private suspend fun saveToHistory(context: Context, id: String, verdict: Verdict) {
+    val details = buildString {
+        append(ScanFlow.headline(verdict)).append(" (").append(verdict.level.name.lowercase()).append(")")
+        verdict.productChecked?.let { append(". Product: ").append(ScanFlow.displayName(it)) }
+        append(". ").append(verdict.reasons.joinToString(" "))
+    }
+    runCatching {
+        ScanHistoryRepository(context).saveEntry(
+            ScanHistoryEntry(
+                id = id,
+                safety = if (verdict.level == VerdictLevel.GREEN) ScanSafety.SAFE else ScanSafety.UNSAFE,
+                scannedOn = Instant.now(),
+                scanDetails = details,
+            )
+        )
+    }
+}
+
+/** A plain text link that opens in the phone's browser (no WebView). */
+@Composable
+private fun FdaLink(label: String, url: String) {
+    val context = LocalContext.current
+    TextButton(onClick = {
+        runCatching { context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url))) }
+    }) { Text(label) }
 }
