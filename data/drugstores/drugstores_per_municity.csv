@@ -1,0 +1,546 @@
+psgc_final,municity_final,province_final,Generika Drugstore,Mercury Drug,Southstar Drug,TGP The Generics Pharmacy,Watsons,total
+102802000,Bacarra,Ilocos Norte,1,0,0,0,0,1
+102805000,City of Batac,Ilocos Norte,1,4,1,0,1,7
+102812000,City of Laoag,Ilocos Norte,5,1,0,0,7,13
+102817000,Pasuquin,Ilocos Norte,1,0,0,0,0,1
+102820000,San Nicolas,Ilocos Norte,2,1,1,0,2,6
+102903000,Bantay,Ilocos Sur,1,1,0,0,1,3
+102905000,Cabugao,Ilocos Sur,1,0,0,0,0,1
+102906000,City of Candon,Ilocos Sur,1,2,0,1,1,5
+102914000,Narvacan,Ilocos Sur,0,1,0,0,1,2
+102924000,Santa Cruz,Ilocos Sur,0,0,0,0,1,1
+102925000,Santa Lucia,Ilocos Sur,1,0,0,0,0,1
+102926000,Santa Maria,Ilocos Sur,0,0,0,1,1,2
+102934000,City of Vigan,Ilocos Sur,2,3,0,0,3,8
+103301000,Agoo,La Union,1,1,1,0,1,4
+103302000,Aringay,La Union,0,0,0,0,1,1
+103303000,Bacnotan,La Union,1,1,0,0,0,2
+103305000,Balaoan,La Union,0,1,0,0,0,1
+103307000,Bauang,La Union,1,1,0,0,0,2
+103311000,Naguilian,La Union,1,1,0,0,0,2
+103313000,Rosario,La Union,1,1,0,0,1,3
+103314000,City of San Fernando,La Union,1,6,0,0,5,12
+103315000,San Gabriel,La Union,1,0,1,0,0,2
+103316000,San Juan,La Union,1,0,0,0,0,1
+105503000,City of Alaminos,Pangasinan,0,2,0,1,2,5
+105506000,Asingan,Pangasinan,1,0,0,0,1,2
+105511000,Bayambang,Pangasinan,0,1,0,1,1,3
+105512000,Binalonan,Pangasinan,0,1,0,1,1,3
+105513000,Binmaley,Pangasinan,1,0,0,1,0,2
+105514000,Bolinao,Pangasinan,0,0,0,0,1,1
+105517000,Calasiao,Pangasinan,1,3,1,0,3,8
+105518000,City of Dagupan,Pangasinan,0,9,1,2,4,16
+105519000,Dasol,Pangasinan,0,0,0,1,0,1
+105520000,Infanta,Pangasinan,0,0,0,1,0,1
+105522000,Lingayen,Pangasinan,1,2,0,0,2,5
+105524000,Malasiqui,Pangasinan,1,1,0,0,1,3
+105525000,Manaoag,Pangasinan,1,1,0,0,1,3
+105526000,Mangaldan,Pangasinan,0,2,0,1,0,3
+105527000,Mangatarem,Pangasinan,1,1,0,0,1,3
+105530000,Pozorrubio,Pangasinan,1,1,0,0,1,3
+105531000,Rosales,Pangasinan,1,1,2,0,3,7
+105532000,City of San Carlos,Pangasinan,1,3,1,0,1,6
+105533000,San Fabian,Pangasinan,1,1,0,0,0,2
+105543000,Tayug,Pangasinan,1,1,0,0,2,4
+105546000,City of Urdaneta,Pangasinan,2,2,1,0,5,10
+105547000,Villasis,Pangasinan,1,1,0,0,0,2
+201501000,Abulug,Cagayan,0,1,0,0,1,2
+201504000,Amulung,Cagayan,0,0,0,0,1,1
+201505000,Aparri,Cagayan,0,2,0,0,2,4
+201511000,Claveria,Cagayan,2,0,0,0,0,2
+201516000,Lal-Lo,Cagayan,1,0,0,0,0,1
+201527000,Solana,Cagayan,0,0,0,0,1,1
+201529000,Tuguegarao City,Cagayan,1,6,2,1,8,18
+203101000,Alicia,Isabela,1,1,2,0,1,5
+203103000,Aurora,Isabela,1,0,0,0,0,1
+203106000,Cabagan,Isabela,1,1,0,0,1,3
+203108000,City of Cauayan,Isabela,2,2,1,1,6,12
+203109000,Cordon,Isabela,0,1,1,0,0,2
+203112000,Echague,Isabela,0,0,0,0,1,1
+203114000,City of Ilagan,Isabela,2,3,0,1,4,10
+203126000,Roxas,Isabela,0,2,0,1,2,5
+203130000,San Manuel,Isabela,0,0,0,1,0,1
+203135000,City of Santiago,Isabela,0,5,2,0,5,12
+203137000,Tumauini,Isabela,1,1,1,1,1,5
+205002000,Aritao,Nueva Vizcaya,1,0,0,0,0,1
+205004000,Bambang,Nueva Vizcaya,0,1,0,0,2,3
+205005000,Bayombong,Nueva Vizcaya,0,1,0,0,1,2
+205013000,Solano,Nueva Vizcaya,0,2,1,1,4,8
+205704000,Maddela,Quirino,0,1,0,0,0,1
+300801000,Abucay,Bataan,0,1,0,0,0,1
+300803000,City of Balanga,Bataan,0,5,1,1,6,13
+300804000,Dinalupihan,Bataan,1,1,0,1,2,5
+300806000,Limay,Bataan,0,0,1,0,0,1
+300807000,Mariveles,Bataan,2,1,0,0,1,4
+300808000,Morong,Bataan,1,0,0,1,0,2
+300809000,Orani,Bataan,1,1,0,0,1,3
+300810000,Orion,Bataan,1,1,0,0,0,2
+300811000,Pilar,Bataan,0,1,0,0,0,1
+301401000,Angat,Bulacan,1,0,0,0,0,1
+301402000,Balagtas,Bulacan,1,1,2,1,1,6
+301403000,City of Baliwag,Bulacan,4,4,4,2,6,20
+301404000,Bocaue,Bulacan,1,2,0,0,1,4
+301405000,Bulacan,Bulacan,1,1,0,0,0,2
+301406000,Bustos,Bulacan,1,1,0,0,1,3
+301407000,Calumpit,Bulacan,1,2,0,0,0,3
+301408000,Guiguinto,Bulacan,2,1,0,1,1,5
+301409000,Hagonoy,Bulacan,1,1,0,0,0,2
+301410000,City of Malolos,Bulacan,3,5,7,2,4,21
+301411000,Marilao,Bulacan,4,3,1,1,5,14
+301412000,City of Meycauayan,Bulacan,3,5,1,3,2,14
+301413000,Norzagaray,Bulacan,1,1,0,0,0,2
+301414000,Obando,Bulacan,1,1,0,0,0,2
+301415000,Pandi,Bulacan,2,0,0,0,1,3
+301416000,Paombong,Bulacan,0,1,0,0,0,1
+301417000,Plaridel,Bulacan,1,2,0,1,2,6
+301418000,Pulilan,Bulacan,2,2,1,0,2,7
+301419000,San Ildefonso,Bulacan,1,1,1,0,1,4
+301420000,City of San Jose Del Monte,Bulacan,8,5,2,1,10,26
+301421000,San Miguel,Bulacan,1,2,1,0,1,5
+301422000,San Rafael,Bulacan,1,0,1,0,2,4
+301423000,Santa Maria,Bulacan,3,6,0,1,3,13
+304901000,Aliaga,Nueva Ecija,1,0,0,0,0,1
+304902000,Bongabon,Nueva Ecija,1,1,1,0,0,3
+304903000,City of Cabanatuan,Nueva Ecija,3,7,10,2,12,34
+304904000,Cabiao,Nueva Ecija,0,1,1,1,1,4
+304907000,Gabaldon,Nueva Ecija,1,0,0,0,0,1
+304908000,City of Gapan,Nueva Ecija,0,4,3,1,3,11
+304911000,Guimba,Nueva Ecija,1,2,1,1,1,6
+304912000,Jaen,Nueva Ecija,0,1,1,0,1,3
+304913000,Laur,Nueva Ecija,1,0,0,0,0,1
+304916000,Lupao,Nueva Ecija,1,0,0,0,0,1
+304917000,Science City of Muñoz,Nueva Ecija,1,2,2,1,1,7
+304923000,Rizal,Nueva Ecija,1,1,1,0,1,4
+304924000,San Antonio,Nueva Ecija,1,0,0,0,0,1
+304925000,San Isidro,Nueva Ecija,0,0,1,0,0,1
+304926000,San Jose City,Nueva Ecija,1,3,3,0,2,9
+304927000,San Leonardo,Nueva Ecija,0,1,0,0,0,1
+304928000,Santa Rosa,Nueva Ecija,1,1,1,0,1,4
+304930000,Talavera,Nueva Ecija,2,2,2,0,2,8
+304932000,Zaragoza,Nueva Ecija,0,1,1,0,1,3
+305402000,Apalit,Pampanga,1,2,1,0,2,6
+305403000,Arayat,Pampanga,1,1,2,0,1,5
+305405000,Candaba,Pampanga,0,1,1,0,0,2
+305406000,Floridablanca,Pampanga,1,1,1,0,1,4
+305407000,Guagua,Pampanga,1,1,5,1,3,11
+305408000,Lubao,Pampanga,1,1,1,0,1,4
+305409000,Mabalacat City,Pampanga,1,4,6,1,3,15
+305410000,Macabebe,Pampanga,1,1,0,0,0,2
+305411000,Magalang,Pampanga,1,1,1,0,1,4
+305413000,Mexico,Pampanga,1,1,0,0,2,4
+305414000,Minalin,Pampanga,1,0,0,0,0,1
+305416000,City of San Fernando,Pampanga,3,9,12,5,15,44
+305418000,San Simon,Pampanga,0,0,0,0,1,1
+305419000,Santa Ana,Pampanga,0,1,0,1,0,2
+305421000,Sto. Tomas,Pampanga,0,0,1,0,0,1
+306902000,Bamban,Tarlac,0,1,0,0,0,1
+306903000,Camiling,Tarlac,0,2,1,0,1,4
+306904000,Capas,Tarlac,1,2,1,0,1,5
+306905000,Concepcion,Tarlac,0,2,1,0,1,4
+306906000,Gerona,Tarlac,1,0,1,0,1,3
+306907000,La Paz,Tarlac,0,1,0,1,0,2
+306909000,Moncada,Tarlac,1,1,0,0,0,2
+306910000,Paniqui,Tarlac,0,5,0,0,2,7
+306915000,Santa Ignacia,Tarlac,1,0,0,0,0,1
+306916000,City of Tarlac,Tarlac,2,8,5,1,10,26
+306917000,Victoria,Tarlac,0,1,0,0,0,1
+307101000,Botolan,Zambales,1,0,0,0,0,1
+307102000,Cabangan,Zambales,1,0,0,0,0,1
+307104000,Castillejos,Zambales,1,0,1,0,1,3
+307105000,Iba,Zambales,1,3,3,1,2,10
+307106000,Masinloc,Zambales,1,0,0,0,0,1
+307108000,Palauig,Zambales,1,0,0,0,0,1
+307111000,San Marcelino,Zambales,1,0,0,0,0,1
+307112000,San Narciso,Zambales,1,0,0,0,0,1
+307113000,Santa Cruz,Zambales,1,1,0,0,1,3
+307114000,Subic,Zambales,1,3,2,0,2,8
+307701000,Baler,Aurora,0,1,0,0,1,2
+330100000,Angeles City,Angeles City,3,13,25,4,11,56
+331400000,Olongapo City,Olongapo City,2,4,5,2,8,21
+401001000,Agoncillo,Batangas,1,0,0,0,0,1
+401003000,Balayan,Batangas,1,2,0,0,2,5
+401004000,Balete,Batangas,1,0,0,0,0,1
+401005000,Batangas City,Batangas,2,7,9,2,8,28
+401006000,Bauan,Batangas,1,1,2,0,1,5
+401007000,City of Calaca,Batangas,1,1,0,0,0,2
+401008000,Calatagan,Batangas,1,0,0,0,0,1
+401009000,Cuenca,Batangas,1,0,0,0,0,1
+401010000,Ibaan,Batangas,1,0,0,0,1,2
+401011000,Laurel,Batangas,0,0,1,0,0,1
+401012000,Lemery,Batangas,1,2,2,0,4,9
+401013000,Lian,Batangas,1,0,0,0,0,1
+401014000,City of Lipa,Batangas,3,6,4,2,7,22
+401016000,Mabini,Batangas,1,0,0,0,0,1
+401017000,Malvar,Batangas,2,0,0,0,1,3
+401018000,Mataasnakahoy,Batangas,1,0,1,0,0,2
+401019000,Nasugbu,Batangas,1,2,0,0,3,6
+401020000,Padre Garcia,Batangas,1,1,1,0,1,4
+401021000,Rosario,Batangas,1,2,1,0,2,6
+401022000,San Jose,Batangas,1,0,0,0,1,2
+401023000,San Juan,Batangas,1,1,0,1,1,4
+401024000,San Luis,Batangas,1,0,0,0,0,1
+401026000,San Pascual,Batangas,1,2,0,0,1,4
+401027000,Santa Teresita,Batangas,1,0,0,0,0,1
+401028000,City of Sto. Tomas,Batangas,4,2,0,0,4,10
+401030000,Talisay,Batangas,1,0,0,0,0,1
+401031000,City of Tanauan,Batangas,2,3,1,0,2,8
+401034000,Tuy,Batangas,1,0,0,0,0,1
+402101000,Alfonso,Cavite,1,1,0,0,0,2
+402102000,Amadeo,Cavite,1,1,0,0,1,3
+402103000,City of Bacoor,Cavite,13,9,2,7,15,46
+402104000,City of Carmona,Cavite,2,1,1,0,1,5
+402105000,City of Cavite,Cavite,2,2,2,1,2,9
+402106000,City of Dasmariñas,Cavite,12,7,9,4,14,46
+402108000,City of General Trias,Cavite,12,2,3,4,4,25
+402109000,City of Imus,Cavite,8,9,5,5,17,44
+402110000,Indang,Cavite,1,1,0,0,0,2
+402111000,Kawit,Cavite,1,2,2,1,4,10
+402114000,Mendez,Cavite,1,1,0,0,0,2
+402115000,Naic,Cavite,1,2,0,1,3,7
+402116000,Noveleta,Cavite,1,1,0,0,0,2
+402117000,Rosario,Cavite,2,2,0,1,4,9
+402118000,Silang,Cavite,4,3,3,0,3,13
+402119000,City of Tagaytay,Cavite,1,3,1,1,4,10
+402120000,Tanza,Cavite,7,2,0,2,3,14
+402121000,Ternate,Cavite,0,0,0,0,1,1
+402122000,City of Trece Martires,Cavite,3,2,0,1,4,10
+402123000,Gen. Mariano Alvarez,Cavite,2,2,0,1,2,7
+403401000,Alaminos,Laguna,1,2,0,1,0,4
+403402000,Bay,Laguna,1,0,0,0,0,1
+403403000,City of Biñan,Laguna,9,5,4,2,4,24
+403404000,City of Cabuyao,Laguna,8,3,3,1,2,17
+403405000,City of Calamba,Laguna,6,11,3,4,11,35
+403406000,Calauan,Laguna,1,1,0,0,0,2
+403408000,Famy,Laguna,0,0,0,1,0,1
+403410000,Liliw,Laguna,1,1,0,0,0,2
+403411000,Los Baños,Laguna,2,3,2,1,2,10
+403417000,Nagcarlan,Laguna,1,1,0,1,0,3
+403418000,Paete,Laguna,1,0,0,0,0,1
+403419000,Pagsanjan,Laguna,1,1,0,0,1,3
+403422000,Pila,Laguna,0,1,0,0,0,1
+403424000,City of San Pablo,Laguna,3,7,1,2,6,19
+403425000,City of San Pedro,Laguna,11,7,3,2,7,30
+403426000,Santa Cruz,Laguna,2,3,1,0,3,9
+403428000,City of Santa Rosa,Laguna,10,12,4,1,15,42
+403429000,Siniloan,Laguna,1,1,0,0,1,3
+403430000,Victoria,Laguna,1,1,0,0,0,2
+405603000,Atimonan,Quezon,1,0,1,0,1,3
+405607000,Calauag,Quezon,1,1,1,0,1,4
+405608000,Candelaria,Quezon,1,3,3,1,2,10
+405610000,Catanauan,Quezon,1,0,0,0,2,3
+405619000,Gumaca,Quezon,1,1,2,0,1,5
+405620000,Infanta,Quezon,1,0,0,1,0,2
+405622000,Lopez,Quezon,1,1,1,0,1,4
+405623000,Lucban,Quezon,1,1,2,0,1,5
+405627000,Mauban,Quezon,1,0,0,1,0,2
+405630000,Pagbilao,Quezon,0,1,1,1,0,3
+405640000,San Andres,Quezon,1,0,0,0,0,1
+405641000,San Antonio,Quezon,1,0,0,0,0,1
+405645000,Sariaya,Quezon,1,1,1,1,0,4
+405646000,Tagkawayan,Quezon,1,0,0,1,0,2
+405647000,City of Tayabas,Quezon,1,0,2,1,1,5
+405648000,Tiaong,Quezon,1,1,2,0,2,6
+405801000,Angono,Rizal,2,2,0,1,2,7
+405802000,City of Antipolo,Rizal,9,10,5,4,17,45
+405803000,Baras,Rizal,2,0,0,0,0,2
+405804000,Binangonan,Rizal,2,2,3,1,2,10
+405805000,Cainta,Rizal,4,4,2,1,4,15
+405806000,Cardona,Rizal,0,0,1,0,0,1
+405808000,Rodriguez,Rizal,6,2,2,3,4,17
+405809000,Morong,Rizal,1,1,0,1,1,4
+405811000,San Mateo,Rizal,2,3,0,2,4,11
+405812000,Tanay,Rizal,3,3,0,2,1,9
+405813000,Taytay,Rizal,2,4,0,1,7,14
+405814000,Teresa,Rizal,1,1,0,1,0,3
+431200000,Lucena City,Lucena City,2,5,5,4,7,23
+500501000,Bacacay,Albay,0,1,0,0,1,2
+500503000,Daraga,Albay,1,1,3,1,1,7
+500504000,Guinobatan,Albay,1,0,2,0,0,3
+500506000,City of Legazpi,Albay,2,5,8,1,7,23
+500507000,Libon,Albay,0,0,0,1,0,1
+500508000,City of Ligao,Albay,0,1,2,1,1,5
+500513000,Pio Duran,Albay,0,0,0,1,0,1
+500514000,Polangui,Albay,1,2,2,1,2,8
+500517000,City of Tabaco,Albay,1,1,2,1,1,6
+500518000,Tiwi,Albay,0,0,1,0,0,1
+501603000,Daet,Camarines Norte,2,3,5,0,5,15
+501606000,Labo,Camarines Norte,0,1,1,0,0,2
+501608000,Paracale,Camarines Norte,1,0,0,0,0,1
+501703000,Bato,Camarines Sur,0,0,0,1,0,1
+501708000,Calabanga,Camarines Sur,0,0,1,0,0,1
+501711000,Caramoan,Camarines Sur,1,0,0,0,0,1
+501715000,Goa,Camarines Sur,1,0,2,0,0,3
+501716000,City of Iriga,Camarines Sur,1,2,4,0,2,9
+501717000,Lagonoy,Camarines Sur,1,0,0,0,0,1
+501718000,Libmanan,Camarines Sur,1,0,1,1,0,3
+501723000,Nabua,Camarines Sur,0,1,1,0,1,3
+501724000,City of Naga,Camarines Sur,4,10,16,1,7,38
+501725000,Ocampo,Camarines Sur,0,0,1,0,0,1
+501727000,Pasacao,Camarines Sur,0,0,1,0,0,1
+501728000,Pili,Camarines Sur,2,1,2,0,2,7
+501734000,Sipocot,Camarines Sur,1,0,1,0,1,3
+501736000,Tigaon,Camarines Sur,1,0,1,0,0,2
+501737000,Tinambac,Camarines Sur,1,0,0,0,0,1
+502008000,San Andres,Catanduanes,0,0,0,1,0,1
+502011000,Virac,Catanduanes,0,1,2,0,2,5
+504101000,Aroroy,Masbate,0,0,1,0,0,1
+504105000,Cataingan,Masbate,1,0,0,0,0,1
+504111000,City of Masbate,Masbate,1,2,6,0,2,11
+504117000,Placer,Masbate,1,0,0,0,0,1
+506203000,Bulan,Sorsogon,1,1,1,0,1,4
+506208000,Gubat,Sorsogon,0,0,1,1,0,2
+506209000,Irosin,Sorsogon,0,0,1,0,0,1
+506216000,City of Sorsogon,Sorsogon,0,2,4,1,6,13
+600406000,Ibajay,Aklan,0,1,0,0,0,1
+600407000,Kalibo,Aklan,0,5,0,2,4,11
+600412000,Malay,Aklan,0,2,0,1,4,7
+600606000,Culasi,Antique,0,1,0,0,0,1
+600613000,San Jose,Antique,0,4,1,0,3,8
+600616000,Sibalom,Antique,0,1,0,0,0,1
+601908000,Mambusao,Capiz,0,1,0,0,0,1
+601912000,Pontevedra,Capiz,1,1,0,0,0,2
+601913000,President Roxas,Capiz,0,1,0,0,0,1
+601914000,City of Roxas,Capiz,0,6,2,2,6,16
+601916000,Sigma,Capiz,0,1,0,0,0,1
+603005000,Balasan,Iloilo,0,1,0,0,1,2
+603008000,Barotac Viejo,Iloilo,0,1,0,0,1,2
+603013000,Calinog,Iloilo,0,1,0,0,1,2
+603015000,Concepcion,Iloilo,1,0,0,0,0,1
+603016000,Dingle,Iloilo,0,0,0,1,0,1
+603019000,Estancia,Iloilo,0,1,0,0,0,1
+603020000,Guimbal,Iloilo,0,1,0,0,0,1
+603023000,Janiuay,Iloilo,1,1,0,0,1,3
+603025000,Lambunao,Iloilo,1,0,0,0,0,1
+603028000,Leon,Iloilo,0,0,1,0,0,1
+603030000,Miagao,Iloilo,0,1,0,0,0,1
+603034000,Oton,Iloilo,0,1,0,0,2,3
+603035000,City of Passi,Iloilo,0,2,0,1,1,4
+603036000,Pavia,Iloilo,1,2,1,0,3,7
+603037000,Pototan,Iloilo,0,1,0,0,0,1
+603042000,San Rafael,Iloilo,0,0,1,0,0,1
+603043000,Santa Barbara,Iloilo,0,1,0,0,2,3
+603044000,Sara,Iloilo,1,1,0,0,0,2
+603045000,Tigbauan,Iloilo,0,0,0,1,0,1
+603047000,Zarraga,Iloilo,0,0,0,0,1,1
+604502000,City of Bago,Negros Occidental,0,1,0,0,1,2
+604503000,Binalbagan,Negros Occidental,0,1,0,0,0,1
+604504000,City of Cadiz,Negros Occidental,1,1,1,0,2,5
+604505000,Calatrava,Negros Occidental,1,0,0,0,0,1
+604509000,City of Escalante,Negros Occidental,0,1,0,0,0,1
+604510000,City of Himamaylan,Negros Occidental,0,1,0,0,0,1
+604511000,Hinigaran,Negros Occidental,0,1,0,0,1,2
+604515000,City of Kabankalan,Negros Occidental,1,2,0,0,3,6
+604516000,City of La Carlota,Negros Occidental,1,1,0,0,0,2
+604523000,City of Sagay,Negros Occidental,1,2,0,0,1,4
+604524000,City of San Carlos,Negros Occidental,1,2,0,0,2,5
+604526000,City of Silay,Negros Occidental,0,2,0,0,3,5
+604528000,City of Talisay,Negros Occidental,0,1,0,0,2,3
+604531000,City of Victorias,Negros Occidental,1,1,0,0,2,4
+607902000,Jordan,Guimaras,0,1,0,0,1,2
+630200000,Bacolod City,Bacolod City,8,14,4,0,18,44
+631000000,Iloilo City,Iloilo City,6,14,3,1,23,47
+701225000,Jagna,Bohol,0,1,0,0,0,1
+701230000,Loon,Bohol,0,1,0,0,0,1
+701242000,City of Tagbilaran,Bohol,0,4,0,1,3,8
+701243000,Talibon,Bohol,0,1,0,0,1,2
+701245000,Tubigon,Bohol,0,1,0,0,1,2
+701246000,Ubay,Bohol,0,1,0,1,0,2
+702205000,Argao,Cebu,0,1,0,0,2,3
+702206000,Asturias,Cebu,1,0,0,0,0,1
+702207000,Badian,Cebu,1,0,0,0,0,1
+702208000,Balamban,Cebu,1,1,0,0,2,4
+702209000,Bantayan,Cebu,1,1,0,0,1,3
+702210000,Barili,Cebu,1,0,0,0,0,1
+702211000,City of Bogo,Cebu,1,2,0,0,1,4
+702214000,City of Carcar,Cebu,1,1,0,0,2,4
+702215000,Carmen,Cebu,1,1,0,0,0,2
+702218000,Compostela,Cebu,1,1,0,0,0,2
+702219000,Consolacion,Cebu,1,1,0,0,4,6
+702220000,Cordova,Cebu,1,0,0,0,1,2
+702221000,Daanbantayan,Cebu,1,0,0,0,1,2
+702222000,Dalaguete,Cebu,1,0,0,0,1,2
+702223000,Danao City,Cebu,4,2,0,0,1,7
+702224000,Dumanjug,Cebu,0,0,0,0,1,1
+702227000,Liloan,Cebu,4,2,0,0,2,8
+702228000,Madridejos,Cebu,1,1,0,0,0,2
+702231000,Medellin,Cebu,1,0,0,0,0,1
+702232000,Minglanilla,Cebu,1,2,1,0,1,5
+702235000,Oslob,Cebu,0,0,0,0,1,1
+702242000,San Francisco,Cebu,1,0,0,0,0,1
+702244000,Santa Fe,Cebu,1,0,0,0,0,1
+702247000,Sogod,Cebu,1,0,0,0,0,1
+702250000,City of Talisay,Cebu,1,3,3,0,3,10
+702251000,City of Toledo,Cebu,1,2,0,0,2,5
+702252000,Tuburan,Cebu,1,1,0,0,0,2
+704603000,Bacong,Negros Oriental,0,1,0,0,0,1
+704604000,City of Bais,Negros Oriental,1,1,0,1,0,3
+704606000,City of Bayawan,Negros Oriental,2,1,0,0,1,4
+704608000,City of Canlaon,Negros Oriental,1,0,0,0,0,1
+704610000,City of Dumaguete,Negros Oriental,4,4,2,0,6,16
+704611000,City of Guihulngan,Negros Oriental,2,1,0,0,1,4
+704614000,Mabinay,Negros Oriental,1,0,0,0,0,1
+704616000,Pamplona,Negros Oriental,2,0,0,0,0,2
+704618000,Santa Catalina,Negros Oriental,1,1,0,0,0,2
+704619000,Siaton,Negros Oriental,1,1,0,0,0,2
+704620000,Sibulan,Negros Oriental,0,1,1,0,1,3
+704621000,City of Tanjay,Negros Oriental,2,1,0,0,1,4
+706106000,Siquijor,Siquijor,1,1,0,0,1,3
+730600000,Cebu City,Cebu City,11,16,6,1,25,59
+731100000,Lapu-Lapu City,Lapu-Lapu City,3,5,2,0,12,22
+731300000,Mandaue City,Mandaue City,1,4,0,0,10,15
+802604000,City of Borongan,Eastern Samar,0,1,0,1,2,4
+802606000,Dolores,Eastern Samar,0,1,0,0,0,1
+802609000,Guiuan,Eastern Samar,0,1,0,0,1,2
+803701000,Abuyog,Leyte,1,0,0,0,0,1
+803702000,Alangalang,Leyte,1,1,0,0,0,2
+803708000,City of Baybay,Leyte,1,2,0,0,2,5
+803715000,Carigara,Leyte,1,0,0,0,0,1
+803719000,Hilongos,Leyte,1,1,0,0,1,3
+803720000,Hindang,Leyte,1,0,0,0,0,1
+803722000,Isabel,Leyte,1,0,0,0,0,1
+803723000,Jaro,Leyte,0,0,1,0,0,1
+803726000,Kananga,Leyte,1,0,1,0,0,2
+803738000,Ormoc City,Leyte,2,3,2,0,5,12
+803739000,Palo,Leyte,0,2,1,0,0,3
+803740000,Palompon,Leyte,0,1,0,0,1,2
+803748000,Tanauan,Leyte,0,1,0,0,1,2
+804801000,Allen,Northern Samar,0,1,1,0,0,2
+804805000,Catarman,Northern Samar,0,2,3,1,3,9
+806003000,City of Calbayog,Samar,1,3,1,1,2,8
+806004000,Calbiga,Samar,0,0,0,1,0,1
+806005000,City of Catbalogan,Samar,1,2,2,0,2,7
+806015000,San Sebastian,Samar,0,0,1,0,0,1
+806407000,City of Maasin,Southern Leyte,0,1,0,0,2,3
+806417000,Sogod,Southern Leyte,0,1,0,0,0,1
+807808000,Naval,Biliran,0,1,0,0,1,2
+831600000,Tacloban City,Tacloban City,1,7,6,0,6,20
+907201000,City of Dapitan,Zamboanga del Norte,1,0,0,0,0,1
+907202000,City of Dipolog,Zamboanga del Norte,0,3,0,0,4,7
+907218000,Sindangan,Zamboanga del Norte,0,1,0,0,1,2
+907319000,Molave,Zamboanga del Sur,1,1,0,0,1,3
+907322000,City of Pagadian,Zamboanga del Sur,1,5,0,0,3,9
+908302000,Buug,Zamboanga Sibugay,0,1,0,0,0,1
+908305000,Ipil,Zamboanga Sibugay,0,1,0,0,2,3
+931700000,Zamboanga City,Zamboanga City,7,8,3,0,13,31
+1001304000,Don Carlos,Bukidnon,1,1,0,0,0,2
+1001307000,Kalilangan,Bukidnon,1,0,0,0,0,1
+1001308000,Kibawe,Bukidnon,1,0,0,0,0,1
+1001312000,City of Malaybalay,Bukidnon,3,2,0,0,2,7
+1001314000,Manolo Fortich,Bukidnon,1,0,0,0,0,1
+1001315000,Maramag,Bukidnon,1,1,0,0,1,3
+1001317000,Quezon,Bukidnon,1,0,0,0,0,1
+1001320000,Talakag,Bukidnon,1,0,0,0,0,1
+1001321000,City of Valencia,Bukidnon,0,3,3,0,2,8
+1001804000,Mambajao,Camiguin,0,1,0,1,0,2
+1003505000,Kapatagan,Lanao del Norte,0,2,0,0,1,3
+1003509000,Lala,Lanao del Norte,0,0,0,0,1,1
+1003510000,Linamon,Lanao del Norte,0,1,0,0,0,1
+1003522000,Tubod,Lanao del Norte,0,1,0,0,1,2
+1004209000,City of Oroquieta,Misamis Occidental,0,2,0,0,1,3
+1004210000,City of Ozamiz,Misamis Occidental,1,4,0,1,4,10
+1004215000,City of Tangub,Misamis Occidental,0,0,0,0,1,1
+1004302000,Balingasag,Misamis Oriental,1,1,1,0,1,4
+1004308000,City of Gingoog,Misamis Oriental,1,1,0,0,2,4
+1004311000,Jasaan,Misamis Oriental,1,0,0,0,0,1
+1004319000,Medina,Misamis Oriental,1,0,0,0,0,1
+1004320000,Naawan,Misamis Oriental,1,0,0,0,0,1
+1004321000,Opol,Misamis Oriental,2,1,0,0,0,3
+1004324000,Tagoloan,Misamis Oriental,1,1,0,0,0,2
+1004326000,Villanueva,Misamis Oriental,1,0,0,0,0,1
+1030500000,Cagayan de Oro City,Cagayan de Oro City,8,17,6,1,21,53
+1030900000,Iligan City,Iligan City,0,6,2,0,4,12
+1102303000,Carmen,Davao del Norte,1,1,0,0,1,3
+1102305000,Kapalong,Davao del Norte,1,1,0,0,0,2
+1102314000,New Corella,Davao del Norte,1,0,0,0,0,1
+1102315000,City of Panabo,Davao del Norte,1,3,0,0,2,6
+1102317000,Island Garden City of Samal,Davao del Norte,1,1,0,0,1,3
+1102318000,Santo Tomas,Davao del Norte,1,1,0,0,1,3
+1102319000,City of Tagum,Davao del Norte,2,8,0,0,5,15
+1102401000,Bansalan,Davao del Sur,0,1,0,0,0,1
+1102403000,City of Digos,Davao del Sur,0,5,0,0,2,7
+1102501000,Baganga,Davao Oriental,0,1,0,0,0,1
+1102507000,Lupon,Davao Oriental,1,1,0,0,0,2
+1102509000,City of Mati,Davao Oriental,0,2,0,0,3,5
+1108201000,Compostela,Davao de Oro,1,0,0,0,0,1
+1108202000,Laak,Davao de Oro,1,0,0,0,0,1
+1108207000,Monkayo,Davao de Oro,0,1,0,0,1,2
+1108209000,Nabunturan,Davao de Oro,1,1,0,0,1,3
+1108211000,Pantukan,Davao de Oro,0,1,0,0,2,3
+1130700000,City of Davao,Davao del Sur,17,46,5,7,32,107
+1204703000,Kabacan,Cotabato,0,1,0,0,1,2
+1204704000,City of Kidapawan,Cotabato,0,3,0,0,2,5
+1204705000,Libungan,Cotabato,0,1,0,0,0,1
+1204707000,Makilala,Cotabato,0,1,0,0,0,1
+1204709000,Midsayap,Cotabato,0,3,0,0,2,5
+1204710000,M'Lang,Cotabato,0,1,0,0,1,2
+1204711000,Pigkawayan,Cotabato,0,1,0,0,0,1
+1206306000,City of Koronadal,South Cotabato,1,6,0,0,3,10
+1206312000,Polomolok,South Cotabato,0,2,0,0,2,4
+1206313000,Surallah,South Cotabato,1,1,0,0,1,3
+1206317000,Tupi,South Cotabato,1,1,0,0,0,2
+1206318000,Santo Niño,South Cotabato,0,1,0,0,0,1
+1206504000,Isulan,Sultan Kudarat,1,3,0,0,1,5
+1206511000,City of Tacurong,Sultan Kudarat,1,4,0,0,1,6
+1208002000,Glan,Sarangani,0,0,0,1,0,1
+1230800000,General Santos City,General Santos City,2,11,1,0,9,23
+1380100000,City of Caloocan,"NCR, Third District (Not a Province)",23,18,6,6,22,75
+1380200000,City of Las Piñas,"NCR, Fourth District (Not a Province)",16,13,5,2,15,51
+1380300000,City of Makati,"NCR, Fourth District (Not a Province)",9,44,0,9,39,101
+1380400000,City of Malabon,"NCR, Third District (Not a Province)",6,9,2,5,2,24
+1380500000,City of Mandaluyong,"NCR, Second District (Not a Province)",13,19,9,3,26,70
+1380600000,City of Manila,"NCR, City of Manila, First District (Not a Province)",20,65,6,17,43,151
+1380700000,City of Marikina,"NCR, Second District (Not a Province)",7,13,2,4,15,41
+1380800000,City of Muntinlupa,"NCR, Fourth District (Not a Province)",9,19,3,5,16,52
+1380900000,City of Navotas,"NCR, Third District (Not a Province)",2,4,1,3,1,11
+1381000000,City of Parañaque,"NCR, Fourth District (Not a Province)",13,23,4,4,27,71
+1381100000,Pasay City,"NCR, Fourth District (Not a Province)",9,12,6,5,17,49
+1381200000,City of Pasig,"NCR, Second District (Not a Province)",15,18,13,10,28,84
+1381300000,Quezon City,"NCR, Second District (Not a Province)",49,90,45,24,90,298
+1381400000,City of San Juan,"NCR, Second District (Not a Province)",1,10,0,1,3,15
+1381500000,City of Taguig,"NCR, Fourth District (Not a Province)",22,2,4,7,10,45
+1381600000,City of Valenzuela,"NCR, Third District (Not a Province)",10,15,3,5,10,43
+1381701000,Pateros,"NCR, Fourth District (Not a Province)",2,2,0,2,1,7
+1400101000,Bangued,Abra,1,2,1,1,1,6
+1401110000,La Trinidad,Benguet,3,1,0,0,1,5
+1402707000,Alfonso Lista,Ifugao,0,0,0,1,0,1
+1403213000,City of Tabuk,Kalinga,3,1,0,0,1,5
+1430300000,Baguio City,Baguio City,9,8,0,0,7,24
+1600201000,Buenavista,Agusan del Norte,1,0,0,0,0,1
+1600203000,City of Cabadbaran,Agusan del Norte,0,1,0,0,2,3
+1600301000,City of Bayugan,Agusan del Sur,0,3,0,0,2,5
+1600306000,Prosperidad,Agusan del Sur,1,0,0,0,0,1
+1600308000,San Francisco,Agusan del Sur,1,3,0,0,1,5
+1600312000,Trento,Agusan del Sur,0,1,0,0,0,1
+1606707000,Dapa,Surigao del Norte,0,1,0,0,0,1
+1606710000,General Luna,Surigao del Norte,0,0,0,0,1,1
+1606724000,City of Surigao,Surigao del Norte,0,4,4,0,3,11
+1606801000,Barobo,Surigao del Sur,0,1,0,0,0,1
+1606803000,City of Bislig,Surigao del Sur,0,1,0,0,1,2
+1606819000,City of Tandag,Surigao del Sur,0,1,0,0,1,2
+1630400000,Butuan City,Butuan City,0,7,2,0,9,18
+1704001000,Boac,Marinduque,0,1,0,0,1,2
+1704005000,Santa Cruz,Marinduque,0,1,0,0,1,2
+1705106000,Mamburao,Occidental Mindoro,0,1,1,0,0,2
+1705109000,Sablayan,Occidental Mindoro,0,1,1,0,1,3
+1705110000,San Jose,Occidental Mindoro,0,2,3,0,1,6
+1705204000,Bulalacao,Oriental Mindoro,0,0,0,1,0,1
+1705205000,City of Calapan,Oriental Mindoro,3,5,3,1,2,14
+1705207000,Mansalay,Oriental Mindoro,0,0,0,1,0,1
+1705208000,Naujan,Oriental Mindoro,0,0,0,0,1,1
+1705209000,Pinamalayan,Oriental Mindoro,1,2,1,1,1,6
+1705210000,Pola,Oriental Mindoro,0,0,0,1,0,1
+1705211000,Puerto Galera,Oriental Mindoro,0,1,0,0,0,1
+1705212000,Roxas,Oriental Mindoro,1,1,1,0,1,4
+1705215000,Victoria,Oriental Mindoro,0,1,0,1,0,2
+1705306000,Brooke'S Point,Palawan,0,1,0,0,1,2
+1705309000,Coron,Palawan,1,0,0,0,0,1
+1705312000,El Nido,Palawan,0,1,0,0,0,1
+1705315000,Narra,Palawan,0,1,0,0,0,1
+1705317000,Quezon,Palawan,0,1,0,0,0,1
+1705318000,Roxas,Palawan,1,1,0,0,0,2
+1705909000,Odiongan,Romblon,0,1,0,0,1,2
+1731500000,Puerto Princesa City,Puerto Princesa City,1,7,0,1,6,15
+1903617000,City of Marawi,Lanao del Sur,1,0,0,0,0,1
+1903630000,Wao,Lanao del Sur,1,0,0,0,0,1
+1908703000,City of Cotabato,Maguindanao del Norte,0,6,1,0,2,9
+1908709000,Parang,Maguindanao del Norte,0,0,0,1,0,1
