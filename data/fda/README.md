@@ -15,6 +15,12 @@
 
 Still missing: the advisory number and URL for each lot (`advisory` is blank, so the app says "an FDA counterfeit
 advisory" instead of naming it), registrations for Myra E, Neurogen E, Rogin E, Omeprazole and DayZinc (only
-DayZincMax, a food supplement, was found), and the EAN-13 barcodes (`barcodes.csv`).
+DayZincMax, a food supplement, was found), and barcodes for Ascozin, Lactezin, Neurogen E,
+Rinityn, Rogin E, Omeprazole, plain Buscopan 10 mg and the regular Imodium pack.
 
 Rebuild after editing the raw files: `python scripts/build_fda_tables.py`.
+
+`barcodes.csv` is collected by hand, not built by the script: 18 EAN-13 codes for 14 of our 20 products,
+from online pharmacy listings (2026-10-24), all passing the check digit. Most are box or promo packs; a retail
+strip may carry a different code. The engine reads only `ean13` and `product`; `pack_size`, `source_url`,
+`retrieved` and `notes` are for people. Add codes only from real packs or listings, never guessed.

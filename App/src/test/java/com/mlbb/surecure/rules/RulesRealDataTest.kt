@@ -26,7 +26,7 @@ class RulesRealDataTest {
     @Test
     fun bundledTablesAreTheBuiltTables() {
         // assets/fda must be a copy of data/fda (built by scripts/build_fda_tables.py), not a hand-edited fork.
-        for (name in listOf("registrations.csv", "counterfeit_lots.csv")) {
+        for (name in listOf("registrations.csv", "counterfeit_lots.csv", "barcodes.csv")) {
             assertArrayEquals(
                 "$name in assets differs from data/fda; copy it again after rebuilding",
                 File("../data/fda/$name").readBytes(),
