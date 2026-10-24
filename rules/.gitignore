@@ -1,0 +1,3 @@
+# Python bytecode caches from running the scripts and tests.
+__pycache__/
+*.pyc
