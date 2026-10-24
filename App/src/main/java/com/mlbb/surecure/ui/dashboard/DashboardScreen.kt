@@ -156,8 +156,6 @@ private fun BrandHeader() {
         horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        // The exported logo SVGs were not included with the uploaded HTML/CSS,
-        // so this small capsule mark is an editable placeholder.
         BrandMark()
         Spacer(modifier = Modifier.width(7.dp))
         Row(verticalAlignment = Alignment.CenterVertically) {

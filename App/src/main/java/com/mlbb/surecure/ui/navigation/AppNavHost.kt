@@ -1,0 +1,92 @@
+package com.mlbb.surecure.ui.navigation
+
+import android.net.Uri
+import android.os.Build
+import androidx.annotation.RequiresApi
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
+import androidx.compose.material3.*
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import com.mlbb.surecure.ui.camera.CameraScreen
+import com.mlbb.surecure.ui.camera.PhotoReviewScreen
+import com.mlbb.surecure.ui.dashboard.DashboardRoute
+
+@RequiresApi(Build.VERSION_CODES.O)
+@Composable
+fun AppNavHost() {
+    val navController = rememberNavController()
+
+    NavHost(
+        navController = navController,
+        startDestination = "dashboard"
+    ) {
+        composable("dashboard") {
+            DashboardRoute(
+                onCameraClick = { hasBarcode ->
+                    navController.navigate("camera")
+                }
+            )
+        }
+
+        composable("camera") {
+            CameraScreen(
+                onBack = {
+                    navController.popBackStack()
+                },
+                onPhotosCaptured = { frontPhoto, codePanelPhoto ->
+                    // Pass the local photo URIs to the review screen.
+                    navController.currentBackStackEntry
+                        ?.savedStateHandle
+                        ?.set("frontPhotoUri", frontPhoto.toString())
+
+                    navController.currentBackStackEntry
+                        ?.savedStateHandle
+                        ?.set("codePanelPhotoUri", codePanelPhoto.toString())
+
+                    navController.navigate("photo-review")
+                }
+            )
+        }
+
+        composable("photo-review") {
+            val cameraEntry = navController.previousBackStackEntry
+
+            val frontPhoto = cameraEntry
+                ?.savedStateHandle
+                ?.get<String>("frontPhotoUri")
+                ?.let { Uri.parse(it) }
+
+            val codePanelPhoto = cameraEntry
+                ?.savedStateHandle
+                ?.get<String>("codePanelPhotoUri")
+                ?.let { Uri.parse(it) }
+
+            if (frontPhoto != null && codePanelPhoto != null) {
+                PhotoReviewScreen(
+                    frontPhoto = frontPhoto,
+                    codePanelPhoto = codePanelPhoto,
+                    onRetake = {
+                        // Return to the camera destination.
+                        navController.popBackStack()
+                    },
+                    onDone = {
+                        navController.popBackStack(
+                            "dashboard",
+                            inclusive = false
+                        )
+                    }
+                )
+            } else {
+                Text(
+                    text = "The captured photos could not be loaded.",
+                )
+            }
+        }
+    }
+}
