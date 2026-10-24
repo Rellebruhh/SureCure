@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -28,6 +29,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -35,6 +37,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import com.mlbb.surecure.ml.ClassifierResult
@@ -44,6 +47,7 @@ import com.mlbb.surecure.rules.VerdictLevel
 import com.mlbb.surecure.rules.verify
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 // Same values as the dashboard's brand colors (private there).
@@ -57,9 +61,11 @@ private val AmberBackground = Color(0xFFFFF3DC)
 
 private sealed interface Phase {
     data object Loading : Phase
-    data class Product(val step: ScanFlow.ProductStep) : Phase
+    data class Barcode(val error: String?) : Phase
+    data class Product(val step: ScanFlow.ProductStep, val fromBarcode: Boolean = false) : Phase
     data class Codes(val product: String?) : Phase
     data class Result(val verdict: Verdict, val product: String?) : Phase
+    data class Nearby(val result: Result) : Phase
 }
 
 /**
@@ -72,27 +78,57 @@ fun ScanResultScreen(
     frontPhoto: Uri,
     codePanelPhoto: Uri,
     onDone: () -> Unit,
+    /** The dashboard's "Do you have the medicine's barcode?" answer: yes starts with the barcode. */
+    hasBarcode: Boolean = false,
 ) {
     val context = LocalContext.current
+    val scope = rememberCoroutineScope()
     var phase by remember { mutableStateOf<Phase>(Phase.Loading) }
     var tables by remember { mutableStateOf<FdaTables?>(null) }
     var modelLabels by remember { mutableStateOf<List<String>>(emptyList()) }
     var notice by remember { mutableStateOf<String?>(null) }
     var entry by remember { mutableStateOf(ScanFlow.CodeEntry()) }
 
+    // Stage 1 by photo: the photo model, or manual selection if it can't decide.
+    fun identifyByPhoto() {
+        phase = Phase.Loading
+        scope.launch {
+            var result: ClassifierResult? = null
+            try {
+                val classifier = ScanEngines.classifier(context)
+                modelLabels = classifier.meta.labels
+                result = withContext(Dispatchers.Default) { classifier.classify(context, frontPhoto) }
+            } catch (e: CancellationException) {
+                throw e
+            } catch (e: Exception) {
+                notice = "The photo couldn't be checked (${e.localizedMessage ?: "error"}). Choose the product below."
+            }
+            phase = Phase.Product(ScanFlow.productStep(result))
+        }
+    }
+
     LaunchedEffect(frontPhoto) {
-        var result: ClassifierResult? = null
         try {
             tables = ScanEngines.tables(context)
-            val classifier = ScanEngines.classifier(context)
-            modelLabels = classifier.meta.labels
-            result = withContext(Dispatchers.Default) { classifier.classify(context, frontPhoto) }
         } catch (e: CancellationException) {
             throw e
         } catch (e: Exception) {
-            notice = "The photo couldn't be checked (${e.localizedMessage ?: "error"}). Choose the product below."
+            notice = "The FDA tables couldn't be loaded (${e.localizedMessage ?: "error"})."
         }
-        phase = Phase.Product(ScanFlow.productStep(result))
+        // Decision order step 1 (meta.json): barcode first when the user has one.
+        if (hasBarcode && tables != null) {
+            phase = Phase.Barcode(null)
+            // Load the photo model meanwhile: needed for "Not this?" and if the barcode isn't listed.
+            try {
+                modelLabels = ScanEngines.classifier(context).meta.labels
+            } catch (e: CancellationException) {
+                throw e
+            } catch (e: Exception) {
+                // identifyByPhoto() reports it if the photo is needed.
+            }
+        } else {
+            identifyByPhoto()
+        }
     }
 
     Column(
@@ -112,8 +148,37 @@ fun ScanResultScreen(
                 Text("Identifying the product...")
             }
 
+            is Phase.Barcode -> BarcodeStage(
+                codePanelPhoto = codePanelPhoto,
+                value = entry.barcode,
+                error = p.error,
+                onValueChange = { entry = entry.copy(barcode = it) },
+                onCheck = {
+                    val t = tables
+                    if (t == null) {
+                        identifyByPhoto()
+                    } else when (val r = ScanFlow.barcodeFirst(entry.barcode, t)) {
+                        is ScanFlow.BarcodeFirst.Found -> {
+                            entry = entry.copy(barcode = r.barcode)
+                            phase = Phase.Product(ScanFlow.ProductStep.Confirm(r.label), fromBarcode = true)
+                        }
+                        is ScanFlow.BarcodeFirst.NotInTable -> {
+                            entry = entry.copy(barcode = r.barcode)
+                            notice = "Barcode ${r.barcode} isn't in our table yet, so the photo is used instead."
+                            identifyByPhoto()
+                        }
+                        is ScanFlow.BarcodeFirst.Unreadable -> phase = Phase.Barcode(
+                            "That doesn't look like a complete barcode (13 digits with a valid last digit). " +
+                                "Check it, or use the photo instead."
+                        )
+                    }
+                },
+                onUsePhoto = { identifyByPhoto() },
+            )
+
             is Phase.Product -> ProductStage(
                 step = p.step,
+                fromBarcode = p.fromBarcode,
                 choices = tables?.let { ScanFlow.productChoices(modelLabels, it) } ?: modelLabels,
                 onChosen = { phase = Phase.Codes(it) },
                 onShowList = { phase = Phase.Product(ScanFlow.ProductStep.ChooseFromList) },
@@ -135,10 +200,47 @@ fun ScanResultScreen(
             is Phase.Result -> VerdictStage(
                 verdict = p.verdict,
                 onEditCodes = { phase = Phase.Codes(p.product) },
+                onFindDrugstore = if (ScanFlow.offersNearbyDrugstores(p.verdict)) {
+                    { phase = Phase.Nearby(p) }
+                } else null,
                 onDone = onDone,
             )
+
+            is Phase.Nearby -> NearbyDrugstores(onBack = { phase = p.result })
         }
     }
+}
+
+// --------------------------------------------------------------------------- Stage 1, barcode first
+
+@Composable
+private fun BarcodeStage(
+    codePanelPhoto: Uri,
+    value: String,
+    error: String?,
+    onValueChange: (String) -> Unit,
+    onCheck: () -> Unit,
+    onUsePhoto: () -> Unit,
+) {
+    Text("Type the barcode number", style = MaterialTheme.typography.titleMedium)
+    Photo(codePanelPhoto, "Code panel photo")
+    OutlinedTextField(
+        value = value,
+        onValueChange = onValueChange,
+        label = { Text("Barcode number (13 digits under the bars)") },
+        singleLine = true,
+        isError = error != null,
+        supportingText = error?.let { msg -> { Text(msg) } },
+        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+        modifier = Modifier.fillMaxWidth()
+    )
+    Button(
+        onClick = onCheck,
+        enabled = value.isNotBlank(),
+        modifier = Modifier.fillMaxWidth(),
+        colors = ButtonDefaults.buttonColors(containerColor = SureCureGreen)
+    ) { Text("Check the barcode") }
+    TextButton(onClick = onUsePhoto) { Text("Use the photo instead") }
 }
 
 // --------------------------------------------------------------------------- Stage 1
@@ -146,13 +248,17 @@ fun ScanResultScreen(
 @Composable
 private fun ProductStage(
     step: ScanFlow.ProductStep,
+    fromBarcode: Boolean,
     choices: List<String>,
     onChosen: (String?) -> Unit,
     onShowList: () -> Unit,
 ) {
     when (step) {
         is ScanFlow.ProductStep.Confirm -> {
-            Text("This looks like", style = MaterialTheme.typography.titleMedium)
+            Text(
+                if (fromBarcode) "The barcode says this is" else "This looks like",
+                style = MaterialTheme.typography.titleMedium
+            )
             Text(
                 ScanFlow.displayName(step.label),
                 style = MaterialTheme.typography.headlineMedium,
@@ -229,6 +335,14 @@ private fun CodeStage(
         style = MaterialTheme.typography.bodySmall
     )
     OutlinedTextField(
+        value = entry.barcode,
+        onValueChange = { onEntryChange(entry.copy(barcode = it)) },
+        label = { Text("Barcode number (13 digits under the bars)") },
+        singleLine = true,
+        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+        modifier = Modifier.fillMaxWidth()
+    )
+    OutlinedTextField(
         value = entry.lot,
         onValueChange = { onEntryChange(entry.copy(lot = it)) },
         label = { Text("Lot / batch number") },
@@ -275,7 +389,12 @@ private fun CodeStage(
 // --------------------------------------------------------------------------- Stage 3
 
 @Composable
-private fun VerdictStage(verdict: Verdict, onEditCodes: () -> Unit, onDone: () -> Unit) {
+private fun VerdictStage(
+    verdict: Verdict,
+    onEditCodes: () -> Unit,
+    onFindDrugstore: (() -> Unit)?,
+    onDone: () -> Unit,
+) {
     val (color, background) = when (verdict.level) {
         VerdictLevel.RED -> SureCureRed to RedBackground
         VerdictLevel.AMBER -> SureCureAmber to AmberBackground
@@ -308,6 +427,11 @@ private fun VerdictStage(verdict: Verdict, onEditCodes: () -> Unit, onDone: () -
                 "It doesn't prove the medicine is genuine.",
             style = MaterialTheme.typography.bodySmall
         )
+    }
+    if (onFindDrugstore != null) {
+        OutlinedButton(onClick = onFindDrugstore, modifier = Modifier.fillMaxWidth()) {
+            Text("Find a nearby drugstore")
+        }
     }
     OutlinedButton(onClick = onEditCodes, modifier = Modifier.fillMaxWidth()) { Text("Edit the codes") }
     Button(

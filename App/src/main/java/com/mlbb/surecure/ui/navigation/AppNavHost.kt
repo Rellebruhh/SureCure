@@ -30,6 +30,10 @@ fun AppNavHost() {
         composable("dashboard") {
             DashboardRoute(
                 onCameraClick = { hasBarcode ->
+                    // Read by scan-result: "yes" starts with the barcode (decision order step 1).
+                    navController.currentBackStackEntry
+                        ?.savedStateHandle
+                        ?.set("hasBarcode", hasBarcode)
                     navController.navigate("camera")
                 }
             )
@@ -104,10 +108,17 @@ fun AppNavHost() {
                 ?.get<String>("codePanelPhotoUri")
                 ?.let { Uri.parse(it) }
 
+            val hasBarcode = runCatching {
+                navController.getBackStackEntry("dashboard")
+                    .savedStateHandle
+                    .get<Boolean>("hasBarcode")
+            }.getOrNull() ?: false
+
             if (frontPhoto != null && codePanelPhoto != null) {
                 ScanResultScreen(
                     frontPhoto = frontPhoto,
                     codePanelPhoto = codePanelPhoto,
+                    hasBarcode = hasBarcode,
                     onDone = {
                         navController.popBackStack(
                             "dashboard",

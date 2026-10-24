@@ -7,6 +7,8 @@ import com.mlbb.surecure.rules.PackDate
 import com.mlbb.surecure.rules.ScanInput
 import com.mlbb.surecure.rules.Verdict
 import com.mlbb.surecure.rules.VerdictLevel
+import com.mlbb.surecure.rules.ean13Valid
+import com.mlbb.surecure.rules.productForBarcode
 
 /**
  * Logic behind the scan-result flow (Figure 1, stages 1 to 3), kept free of Compose so it can
@@ -24,6 +26,27 @@ object ScanFlow {
 
         /** Not recognized (or the model failed): manual selection from every known product. */
         data object ChooseFromList : ProductStep
+    }
+
+    /** Result of the barcode-first check (decision order step 1 in meta.json). */
+    sealed interface BarcodeFirst {
+        /** In the barcode table: confirm this product and skip the photo model. */
+        data class Found(val label: String, val barcode: String) : BarcodeFirst
+
+        /** A valid EAN-13 that isn't in the table yet: use the photo model; the verdict will say amber. */
+        data class NotInTable(val barcode: String) : BarcodeFirst
+
+        /** Not 13 digits or the check digit fails (likely a typo): ask again or use the photo. */
+        data class Unreadable(val barcode: String) : BarcodeFirst
+    }
+
+    /** Step 1: a typed barcode (spaces removed) looked up in the barcode table. */
+    fun barcodeFirst(typed: String, tables: FdaTables): BarcodeFirst {
+        val code = typed.filterNot { it.isWhitespace() }
+        if (!ean13Valid(code)) return BarcodeFirst.Unreadable(code)
+        return tables.productForBarcode(code)
+            ?.let { BarcodeFirst.Found(it, code) }
+            ?: BarcodeFirst.NotInTable(code)
     }
 
     fun productStep(result: ClassifierResult?): ProductStep = when (result?.status) {
@@ -45,6 +68,8 @@ object ScanFlow {
 
     /** Stage 2 input as typed by the user, before parsing. */
     data class CodeEntry(
+        /** The 13 digits under the barcode, as printed. */
+        val barcode: String = "",
         val lot: String = "",
         val regNo: String = "",
         val expiry: String = "",
@@ -75,6 +100,10 @@ object ScanFlow {
         return Parsed.Ok(
             ScanInput(
                 stage1Product = product,
+                // Packs print the digits in groups ("4 807788 526762"); the engine expects 13 digits.
+                // Anything else is passed on as typed, so a wrong digit count gets the engine's
+                // amber "could not be read reliably", never a guess.
+                barcode = entry.barcode.filterNot { it.isWhitespace() }.takeIf { it.isNotEmpty() },
                 lot = entry.lot.trim().takeIf { it.isNotEmpty() },
                 regNo = entry.regNo.trim().takeIf { it.isNotEmpty() },
                 mfgDate = mfg,
@@ -97,4 +126,14 @@ object ScanFlow {
         }
 
     const val RED_MISMATCH_HEADLINE = "Codes belong to a different product"
+
+    /** "Find a nearby drugstore" is offered when the result isn't green. */
+    fun offersNearbyDrugstores(verdict: Verdict): Boolean = verdict.level != VerdictLevel.GREEN
+
+    /** 0.425 -> "430 m", 1.573 -> "1.6 km", 12.34 -> "12 km". */
+    fun formatDistance(km: Double): String = when {
+        km < 1.0 -> "${(Math.round(km * 100) * 10).coerceAtLeast(10)} m"
+        km < 10.0 -> String.format(java.util.Locale.ROOT, "%.1f km", km)
+        else -> "${Math.round(km)} km"
+    }
 }

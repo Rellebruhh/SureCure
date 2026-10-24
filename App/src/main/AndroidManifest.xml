@@ -28,4 +28,6 @@
         </activity>
     </application>
     <uses-permission android:name="android.permission.CAMERA" />
+    <!-- One approximate reading for "Find a nearby drugstore"; never stored or sent. -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 </manifest>
