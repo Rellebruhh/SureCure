@@ -116,3 +116,54 @@ How to run the golden test:
 - Repo size. `surecure.onnx` is 45.8 MB, under GitHub's 50 MB warning and 100 MB limit,
   so it commits normally. Git LFS or a GitHub Release asset is an option if the team
   prefers to keep the repo small.
+
+## Scan-result flow (Figure 1, stages 1 to 3)
+
+Added after the app dev's camera and photo review screens. New files in `ui/result/`:
+
+- `ScanFlow.kt`: the flow logic, no Compose (unit tested in `ScanFlowTest`).
+- `ScanResultScreen.kt`: the screen.
+- `ScanEngines.kt`: loads the photo model and FDA tables once per app process.
+
+Flow: photo review → "Check this medicine" → `scan-result`:
+
+1. **Stage 1, product.** The front photo goes through `ProductClassifier`.
+   - `ACCEPTED`: "This looks like X" with "Yes, that's it" / "Not this?".
+   - `LOW_CONFIDENCE`: "Which one is it?" with the top 3 / "None of these".
+   - `NOT_RECOGNIZED` (or the model fails): manual selection. The list shows the 20 model
+     products first, then every other product in the FDA tables, with a search field and
+     "It's not listed / I don't know".
+2. **Stage 2, codes.** The code-panel photo is shown above fields for lot, registration number,
+   expiry and manufacture date. Typed by the user for now; ML Kit reading should fill the same
+   fields later for the user to confirm. Blank means "not entered". A date that can't be read
+   is flagged on the field instead of being ignored.
+3. **Stage 3, verdict.** `verify()` on the bundled tables; the headline, the product checked
+   and every reason. "Edit the codes" goes back with the typed codes kept.
+
+Existing files touched (glue only):
+
+- `ui/navigation/AppNavHost.kt`: new `scan-result` destination (reads the photo URIs from the
+  camera entry, as photo-review does); photo review's continue action now goes there instead
+  of straight back to the dashboard.
+- `ui/camera/PhotoReviewScreen.kt`: button label "Return to dashboard" → "Check this medicine",
+  and the note "Result analysis has not been connected yet" removed.
+
+### Pipeline revisions (proposed, to confirm with the team)
+
+- **Red has two causes.** The engine (and the Python spec) gives red for a listed counterfeit lot
+  and for codes that belong to another product. Figure 1 shows the second as amber. The engine
+  is unchanged; the screen shows "Matches an FDA counterfeit advisory" only for lot matches and
+  "Codes belong to a different product" for the other case (`Verdict.counterfeitLotMatch`, a
+  Kotlin-only field; levels and reasons still match Python). Suggested Figure 1 wording for red:
+  "Lot matches FDA advisory, or codes belong to another product".
+- **Barcode first is deferred.** The model contract's decision order starts with "barcode found
+  in the product table → skip the photo model"; Figure 1 reads codes after the photo. With no
+  barcode table yet, the app follows Figure 1. The dashboard's "Do you have the barcode?"
+  answer is still unused.
+
+### Not done yet
+
+- Stage 0 blur and glare check; Stage 2 ML Kit reading; Stage 4 visual check and reporting.
+- Saving the result to scan history: needs `ScanSafety` to have three levels (app dev's model).
+- The screen state is not kept across rotation or process death.
+- The screens compile and their logic is unit tested, but have not been run on a device yet.

@@ -136,6 +136,8 @@ data class Verdict(
     /** Every rule that fired, most severe first. */
     val reasons: List<String>,
     val productChecked: String?,
+    /** True if the lot matched (or was one character from) a listed counterfeit lot. Kotlin-only addition. */
+    val counterfeitLotMatch: Boolean = false,
 ) {
     val message: String get() = level.headline
 }
@@ -180,6 +182,7 @@ fun verify(scan: ScanInput, tables: FdaTables, today: PackDate = PackDate.today(
     }
 
     // Red: lot listed in an FDA counterfeit advisory for this product (exact or 1 edit away)
+    var lotMatch = false
     if (scan.lot.given() && product.given()) {
         val lot = normalizeLot(scan.lot)
         for (c in tables.counterfeitLots) {
@@ -189,8 +192,10 @@ fun verify(scan: ScanInput, tables: FdaTables, today: PackDate = PackDate.today(
             val d = editDistance(lot, listed)
             if (d == 0) {
                 hit(VerdictLevel.RED, "Lot ${scan.lot} is listed as counterfeit in $src.")
+                lotMatch = true
             } else if (d == 1 && minOf(lot.length, listed.length) >= MIN_FUZZY_LOT_LEN) {
                 hit(VerdictLevel.RED, "Lot ${scan.lot} is one character from counterfeit lot ${c.lot} ($src).")
+                lotMatch = true
             }
         }
     }
@@ -231,5 +236,5 @@ fun verify(scan: ScanInput, tables: FdaTables, today: PackDate = PackDate.today(
 
     if (hits.isEmpty()) return Verdict(VerdictLevel.GREEN, listOf("All checks passed."), product)
     val sorted = hits.sortedByDescending { it.first.ordinal }  // stable, like Python's sort
-    return Verdict(sorted[0].first, sorted.map { it.second }, product)
+    return Verdict(sorted[0].first, sorted.map { it.second }, product, lotMatch)
 }

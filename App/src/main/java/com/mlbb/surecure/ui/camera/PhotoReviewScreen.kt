@@ -56,7 +56,7 @@ fun PhotoReviewScreen(
             onClick = onDone,
             modifier = Modifier.fillMaxWidth()
         ) {
-            Text("Return to dashboard")
+            Text("Check this medicine")
         }
 
         OutlinedButton(
@@ -67,8 +67,7 @@ fun PhotoReviewScreen(
         }
 
         Text(
-            text = "The images are saved locally. " +
-                    "Result analysis has not been connected yet.",
+            text = "The images are saved locally.",
             style = MaterialTheme.typography.bodySmall
         )
     }
