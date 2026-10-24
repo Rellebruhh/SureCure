@@ -219,7 +219,7 @@ private fun ScanHistoryRow(
             verticalArrangement = Arrangement.Center
         ) {
             Text(
-                text = if (isSafe) "Marked safe." else "Marked unsafe.",
+                text = if (isSafe) "No match with FDA records" else "Flagged: check with FDA",
                 color = statusColor,
                 fontSize = 16.sp,
                 lineHeight = 20.sp,
