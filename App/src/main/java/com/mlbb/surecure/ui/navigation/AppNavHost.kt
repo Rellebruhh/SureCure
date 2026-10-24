@@ -16,6 +16,7 @@ import androidx.navigation.compose.rememberNavController
 import com.mlbb.surecure.ui.camera.CameraScreen
 import com.mlbb.surecure.ui.camera.PhotoReviewScreen
 import com.mlbb.surecure.ui.dashboard.DashboardRoute
+import com.mlbb.surecure.ui.result.ScanResultScreen
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
@@ -75,6 +76,38 @@ fun AppNavHost() {
                         // Return to the camera destination.
                         navController.popBackStack()
                     },
+                    onDone = {
+                        // Continue to the product check (Figure 1, stages 1 to 3).
+                        navController.navigate("scan-result")
+                    }
+                )
+            } else {
+                Text(
+                    text = "The captured photos could not be loaded.",
+                )
+            }
+        }
+
+        composable("scan-result") {
+            // Photo URIs were stored on the camera entry, as for photo-review.
+            val cameraEntry = runCatching {
+                navController.getBackStackEntry("camera")
+            }.getOrNull()
+
+            val frontPhoto = cameraEntry
+                ?.savedStateHandle
+                ?.get<String>("frontPhotoUri")
+                ?.let { Uri.parse(it) }
+
+            val codePanelPhoto = cameraEntry
+                ?.savedStateHandle
+                ?.get<String>("codePanelPhotoUri")
+                ?.let { Uri.parse(it) }
+
+            if (frontPhoto != null && codePanelPhoto != null) {
+                ScanResultScreen(
+                    frontPhoto = frontPhoto,
+                    codePanelPhoto = codePanelPhoto,
                     onDone = {
                         navController.popBackStack(
                             "dashboard",
